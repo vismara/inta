@@ -1,0 +1,98 @@
+# Exponential family of distributions
+
+```{r setup}
+#| include: false
+library(ggplot2)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+# Define the x-values for the plots
+x <- seq(0, 10, by = 0.1)
+
+# Define the exponential family representations for each distribution
+gaussian_pdf <- dnorm(x, mean = 5, sd = 1)
+poisson_pdf <- dpois(x, lambda = 3)
+binomial_pdf <- dbinom(x, size = 10, prob = 0.3)
+beta_pdf <- dbeta(x, shape1 = 2, shape2 = 5)
+gamma_pdf <- dgamma(x, shape = 2, scale = 2)
+
+# Create plots for each distribution
+plot_gaussian <- ggplot(data = data.frame(x, gaussian_pdf), aes(x = x, y = gaussian_pdf)) +
+  geom_line(color = "blue", linewidth = 1) +
+  labs(title = "Gaussian (Normal) Distribution",
+       x = "x",
+       y = "Probability Density") +
+  theme_minimal()
+
+plot_poisson <- ggplot(data = data.frame(x, poisson_pdf), aes(x = x, y = poisson_pdf)) +
+  geom_line(color = "green", linewidth = 1) +
+  labs(title = "Poisson Distribution",
+       x = "x",
+       y = "Probability Mass") +
+  theme_minimal()
+
+plot_binomial <- ggplot(data = data.frame(x, binomial_pdf), aes(x = x, y = binomial_pdf)) +
+  geom_line(color = "red", linewidth = 1) +
+  labs(title = "Binomial Distribution",
+       x = "x",
+       y = "Probability Mass") +
+  theme_minimal()
+
+plot_beta <- ggplot(data = data.frame(x, beta_pdf), aes(x = x, y = beta_pdf)) +
+  geom_line(color = "purple", linewidth = 1) +
+  labs(title = "Beta Distribution",
+       x = "x",
+       y = "Probability Density") +
+  theme_minimal()
+
+plot_gamma <- ggplot(data = data.frame(x, gamma_pdf), aes(x = x, y = gamma_pdf)) +
+  geom_line(color = "orange", linewidth = 1) +
+  labs(title = "Gamma Distribution",
+       x = "x",
+       y = "Probability Density") +
+  theme_minimal()
+```
+
+
+The exponential family is a broad class of probability distributions that includes well-known distributions such as the Gaussian (Normal), Poisson, Binomial, Beta, and Gamma distributions. These distributions can be expressed in the form of the exponential family, sharing a common structure.
+
+## Gaussian (Normal) Distribution
+
+The Gaussian distribution is characterized by a bell-shaped curve and is widely used in various fields of science and statistics [@GaussianCitation]. Its probability density function (PDF) is defined as:
+
+
+\begin{equation}
+f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+\end{equation}
+
+
+## Poisson Distribution
+
+The Poisson distribution models events occurring in fixed intervals of time or space. It is another example of an exponential family distribution when expressed in the right form.
+
+## Binomial Distribution
+
+The binomial distribution describes the number of successes in a fixed number of Bernoulli trials. When appropriately parameterized, it is also a member of the exponential family.
+
+## Beta Distribution
+
+The beta distribution is used for modeling probabilities or proportions. It, too, can be derived from the exponential family when the parameters align with the framework.
+
+## Gamma Distribution
+
+The gamma distribution is often used to model wait times and can be expressed as a member of the exponential family by selecting the appropriate parameters.
+
+In the figures below, you can see how these distributions align with the exponential family framework:
+
+```{r}
+#| echo: false
+#| out.width: "100%"
+# Display the plots of distributions
+# Arrange the plots in a grid
+library(gridExtra)
+grid.arrange(plot_gaussian, plot_poisson, plot_binomial, plot_beta, plot_gamma, nrow = 2)
+```
+
+These graphical representations illustrate how these common distributions fit the structure of the exponential family, allowing for a unified understanding of their relationships and facilitating statistical inference and modeling.

@@ -1,0 +1,55 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Analysis of the behavior of dairy cattle using R"
+  reader-mode: true
+
+  page-footer:
+    left: |
+      This tutorial was written by Edgar Vismara and Frederico Vieira.
+    right: |
+      This material was built with <a href="https://quarto.org/">Quarto</a>.
+  cover-image: cover.png
+  favicon: cover.png
+  author: "Edgar Vismara and Frederico Vieira"
+  date: last-modified
+  
+  chapters:
+    - index.qmd
+    
+    - part: "Introduction to R" 
+      chapters:
+      - intro.qmd
+      - start.qmd
+ 
+    - part: "Statistical Modeling of Dairy Cattle Behavior"   
+      chapters:
+      - dist.qmd 
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    code-link: true
+    self-contained-math: true
+   
+
+    author-meta: "Edgar Vismara and Frederico Vieira"
+    callout-appearance: simple
+  pdf:
+    documentclass: scrreprt
+    cover-image: cover.png
+    include-in-header: 
+      text: |
+        \usepackage{makeidx}
+        \makeindex
+    include-after-body: 
+      text: |
+        \printindex
+  epub: default
+
+editor: visual
+

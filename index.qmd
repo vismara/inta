@@ -1,0 +1,9 @@
+# Preface {.unnumbered}
+
+Welcome to this online course on "Analysis of the behavior of dairy cattle using R". This tutorial is divided into two parts, each of which plays a critical role in understanding and applying data-driven insights to the study of dairy cattle behavior, particularly in response to various human interventions, with a focus on enviromental conditions.
+
+Part 1, "Introduction to R," provides the foundation for data analysis and visualization. In this section, we will introduce you to R, a powerful programming language and environment for statistical computing and graphics. We will explore the basics of R, from setting up the environment to performing data manipulation and visualization. These skills are essential for conducting the advanced statistical analysis presented in Part 2.
+
+Part 2, "Statistical Modeling of Dairy Cattle Behavior", delves deep into the world of data-driven analysis specific to dairy cattle behavior. You will learn how to collect and preprocess behavioral data, and then apply advanced statistical modeling techniques to understand how climate conditions and other human interventions impact the behavior of dairy cattle.
+
+This course is designed to provide elementary skills and knowledge necessary to conduct useful statistical analysis in the context of dairy cattle behavior. Whether you are a scientist, a farmer, a professional or a student, this course will provide you with the tools needed to make informed decisions and contribute to the welfare and productivity of dairy cattle.
