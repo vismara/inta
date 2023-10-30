@@ -1,0 +1,335 @@
+# Basics
+
+## Syntax, object types and structure
+
+In R, you work with a variety of data types to represent and manipulate information. Understanding these data types is essential for effective data analysis. Let's expand upon the data types in the context of the provided text.
+
+### Character
+
+Character data types are used to represent text or strings. They are enclosed in single or double quotes and are ideal for working with labels, names, or textual data.
+
+Example:
+
+```{r}
+# Name of a dairy cow
+cow_name <- "Bessie"
+```
+
+### Factor
+
+Factors are a unique data type in R, often used to represent categorical data. They have predefined levels, making them suitable for variables with distinct categories or levels.
+
+Example:
+
+```{r}
+# Cow breeds as a factor
+cow_breeds <- factor(c("Holstein", "Jersey", "Guernsey", "Simmental"))
+```
+
+### Double
+
+Double data types represent numeric values, typically in decimal form. They are used for storing continuous, real-valued data, such as measurements and percentages.
+
+Example:
+
+```{r}
+# Milk production in gallons
+milk_production_gallons <- 15.5
+```
+
+### Integer
+
+Integer data types are used for whole numbers without decimal points. They are ideal for representing counts, quantities, or discrete values.
+
+Example:
+
+```{r}
+# Number of calves born
+num_calves <- 5L  # The 'L' indicates it's an integer
+```
+
+### Logical
+
+Logical data types, often referred to as booleans, represent binary values: TRUE or FALSE. They are essential for making logical comparisons and decisions in your code.
+
+Example:
+
+```{r}
+# Is the cow healthy?
+is_healthy <- TRUE
+```
+
+### Date
+
+Date data types are used to work with dates and times. They allow you to represent specific points in time, including date and time together, in a structured manner.
+
+Example:
+
+```{r}
+# Date of last milk collection
+last_milk_collection <- as.Date("2023-10-25")
+```
+
+### Lists
+
+Lists are a versatile data type in R, capable of storing various objects of different types. They can contain scalars, vectors, data frames, and more.
+
+Example:
+
+```{r}
+# Information about a dairy farm as a list
+farm_info <- list(farm_name = "Green Meadows", location = "Wisconsin", cows = c(550, 600, 520, 580, 630), is_organic = FALSE)
+```
+
+Various types of data can be organized using a diverse range of data structures, as previously mentioned scalars, vectors, matrices, and data frames.
+
+### Scalars
+
+Scalars are single values in R. They can be integers, decimals, or characters. You might use scalars to represent individual data points.
+
+Example:
+
+```{r}
+# Number of dairy cows on a farm
+num_cows <- 100
+```
+
+### Vectors
+
+Vectors are one-dimensional arrays that can store multiple values of the same data type. They are commonly used in R to work with collections of data. For example, you might use vectors to store information about individual cow weights.
+
+Example:
+
+```{r}
+# Weight of dairy cows in kilograms
+cow_weights <- c(550, 600, 520, 580, 630)
+```
+
+### Matrices
+
+Matrices are two-dimensional arrays that can store data of the same data type. You might use matrices to represent data tables, like the weights of multiple cows over time.
+
+Example:
+
+```{r}
+# Create a matrix with cow weights for two weeks
+cow_weight_matrix <- matrix(c(550, 600, 520, 580, 630, 560, 610, 530, 590, 640), nrow = 5, byrow = TRUE)
+colnames(cow_weight_matrix) <- c("Week1", "Week2")
+rownames(cow_weight_matrix) <- c("Cow1", "Cow2", "Cow3", "Cow4", "Cow5")
+```
+
+
+### Data Frames
+
+Data frames are a common data structure in R, designed for tabular data. They can store different types of data (e.g., scalars, vectors) in columns. You might use data frames to organize data like cow ID, age, weight, and milk production.
+
+Example:
+
+```{r}
+# Create a data frame with information about dairy cows
+dairy_cows <- data.frame(
+  ID = c(1, 2, 3, 4, 5),
+  Name = c("Bessie", "MooMoo", "Daisy", "Buttercup", "Elsie"),
+  Age = c(5, 4, 6, 3, 7),
+  Weight_kg = cow_weights,
+  Milk_Production_liters = c(20, 18, 22, 19, 21)
+)
+```
+
+
+## Pre-compiled Functions
+
+R provides pre-compiled functions and data structures that optimize the efficiency of working with these objects. Some of these functions have been demonstrated in the earlier examples, including:
+
+- **Combining elements**: The `c()` function is fundamental in R for creating vectors by combining individual elements. 
+-   **Matrices:** You can create matrices using the `matrix()` function to organize structured data.
+-   **Data Frames:** The `data.frame()` function is employed to establish data frames for tabular data.
+
+However, there are numerous others, including:
+
+-   **Summary Statistics:** R offers pre-compiled functions like `mean()`, `median()`, and `summary()` for in-depth data analysis.
+-   **Plotting:** R provides functions such as `plot()` and `hist()` for crafting data visualizations.
+
+These pre-compiled functions and data structures simplify the process of working with data, enabling efficient data manipulation and analysis.
+
+Certainly, here's the revised version, including information about what "val" represents:
+
+## Understanding the Generic Structure of an R Function
+
+In R, every function adheres to a consistent and generic structure, typically defined as:
+
+```{r, eval = F}
+function_name(arg1 = val, arg2 = val, arg3 = val, ..., argN = val)
+```
+
+- **function_name:** This is the name of the R function, and it signifies the specific operation that the function performs.
+
+- **arg1, arg2, arg3, ..., argN:** These represent the function's arguments, encapsulated within parentheses. Arguments are placeholders for the values or parameters that you provide to the function. The number and type of arguments may vary depending on the specific function.
+
+In this context, "val" is a placeholder for the actual values or parameters you would provide when calling the function. The "val" should be replaced with specific values relevant to the function's operation.
+
+Example:
+
+```{r, eval = F}
+# Generic structure of a function
+result <- mean(x = c(1, 2, 3, NA), na.rm = T)
+```
+
+
+## Dealing with "NA" Values in R
+
+In R, "NA" represents missing or undefined data. It stands for "Not Available" and is used to indicate missing values. You may encounter different types of "NA" values, each tailored to specific data types. To handle missing data:
+
+- Detect NAs with `is.na()` or `complete.cases()`.
+
+- Remove NAs using functions like `na.omit()`.
+
+- Replace NAs with specific values when needed.
+
+- Ignore NAs in calculations using the `na.rm` parameter.
+
+
+Example:
+
+```{r}
+# Create a vector with missing data (NAs)
+data_vector <- c(12, NA, 25, 18, NA, 30)
+
+# Detect NAs in the vector
+na_indices <- which(is.na(data_vector))
+
+# Remove NAs and create a new vector
+clean_vector <- na.omit(data_vector)
+
+# Replace NAs with a specific value (e.g., 0)
+data_vector[is.na(data_vector)] <- 0
+
+# Calculate the mean of the cleaned vector, ignoring NAs
+mean_value <- mean(clean_vector, na.rm = TRUE)
+
+# Print the results
+cat("Original Data Vector: ", data_vector, "\n")
+cat("Indices of NAs: ", na_indices, "\n")
+cat("Cleaned Data Vector: ", clean_vector, "\n")
+cat("Mean Value (Ignoring NAs): ", mean_value, "\n")
+```
+
+
+## Libraries
+
+In R, libraries are collections of functions and datasets that extend the capabilities of the base R system. They provide additional tools and functions for various tasks, such as data manipulation, visualization, and statistical analysis. Libraries are crucial for enhancing your data analysis and programming capabilities in R.
+
+### Installing and Loading Libraries in R
+
+To use a library in R, you first need to install it (usually only once) and then load it (each time you start a new R session) using the `library()` function. You can install and load libraries using RStudio or directly in R.
+
+Example: Installing and Loading the "tidyverse" Library in RStudio
+
+1.  Open RStudio.
+
+2.  In the RStudio console, you can install the "tidyverse" library using the `install.packages()` function:
+
+```{r, eval = F}
+install.packages("tidyverse")
+```
+
+This command will download and install the "tidyverse" package from the Comprehensive R Archive Network (CRAN).
+
+3.  Once the installation is complete, load the "tidyverse" library using the `library()` function:
+
+```{r}
+library(tidyverse)
+```
+
+Loading the "tidyverse" library makes its functions and data manipulation tools available for your R session.
+
+Now you can take advantage of the powerful data analysis and visualization tools provided by the "tidyverse" package in your RStudio environment.
+
+Libraries like "tidyverse" are essential for extending R's functionality and making it a powerful platform for data analysis and statistical computing.
+
+
+
+## Data Import in R
+
+Data import is a crucial step in data analysis using R. R provides various functions and packages to import and manipulate data from different sources. Here, we'll cover how to import pre-available data and work with commonly used file formats like CSV, TXT, and Excel.
+
+### Importing Pre-Available Data
+
+In R, there are built-in datasets that you can use for practice and analysis. One such dataset is the "mtcars" dataset.
+
+```{r}
+# Load the built-in "mtcars" dataset
+data(mtcars)
+
+# View the first few rows of the dataset
+head(mtcars)
+```
+
+The "mtcars" dataset is now available for analysis.
+
+### Importing Data from CSV
+
+Suppose you have data in a CSV (Comma-Separated Values) file. You can use the `read_csv()` function from the Tidyverse to import it. Here's an example:
+
+```{r, eval = F}
+# Import data from a CSV file
+my_data <- read_csv("my_data.csv")
+
+# Display the first few rows of the imported data
+head(my_data)
+```
+
+Replace `"my_data.csv"` with the actual path to your CSV file.
+
+### Importing Data from Text (TXT) Files
+
+To import data from a plain text file, you can use the `read_delim()` function from Tidyverse. This function is versatile and can handle various delimiters, making it suitable for tab-delimited or space-delimited files. Here's an example:
+
+```{r, eval = F}
+# Import data from a text file
+my_data <- read_delim("my_data.txt", delim = "\t")
+
+# Display the first few rows of the imported data
+head(my_data)
+```
+
+Replace `"my_data.txt"` with the actual path to your text file and adjust the `delim` parameter as needed to match your file's delimiter.
+
+### Importing Data from Excel
+
+To import data from Excel files, you can use the `readxl` package. First, install the package and then use the `read_excel()` function to import data from an Excel file.
+
+Assuming you have an Excel file named `"dairy_data.xlsx"` with a sheet named `"Cattle_Info"`, you can import it as follows:
+
+```{r, eval = F}
+# Install and load the "readxl" package (install only once)
+# install.packages("readxl")
+library(readxl)
+
+# Import data from an Excel file
+cattle_data_excel <- read_excel("dairy_data.xlsx", sheet = "Cattle_Info")
+
+# View the first few rows of the imported data
+head(cattle_data_excel)
+
+```
+
+### Beyond Local Files
+
+Beyond local data storage, R enables you to seamlessly import datasets from the internet. This functionality provides access to a wide range of online data sources.
+
+To import a dataset from the internet into R, you can employ the functions previously discussed, depending on the file format accessible via a URL. Let's illustrate this with a practical example involving a `.csv` file related to milk production for dairy cows, hosted on GitHub. Here's how to import this data into R:
+
+```{r}
+# Define the URL of the dataset
+data_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/state_milk_production.csv"
+
+
+# Import data from the internet
+state_milk_production <- read_csv(data_url, show_col_types = FALSE)
+
+# View the first few rows of the imported data
+head(state_milk_production)
+```
+
+

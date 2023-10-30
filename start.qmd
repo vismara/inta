@@ -1,36 +1,49 @@
-# Installing R
+# Installation
 
-To install R, go to the official R website: [https://www.r-project.org/](https://www.r-project.org/) and follow these steps based on your operating system:
+## Installing R and Rstudio
 
-## On Windows
+To install R, go to the official R website: <https://www.r-project.org/> and follow these steps based on your operating system:
 
-- In the left menu, select "CRAN."
-- Choose the "Download R for Windows" option.
-- Select the "base" option.
-- On the following page, choose the CRAN mirror closest to your location.
-- Download the latest version (e.g., "R-x.x.x for Windows").
-- Double-click the downloaded file and follow the installation instructions.
+### On Windows
 
-## On Linux
+-   In the left menu, select "CRAN."
+-   Choose the "Download R for Windows" option.
+-   Select the "base" option.
+-   On the following page, choose the CRAN mirror closest to your location.
+-   Download the latest version (e.g., "R-x.x.x for Windows").
+-   Double-click the downloaded file and follow the installation instructions.
 
-- In the left menu, select "CRAN."
-- Choose the "Download R for Linux" option.
-- Select the CRAN mirror closest to your location.
-- Choose the link for your specific distribution.
-- Follow the instructions provided on the page to install R.
+### On Linux
 
-## On macOS
+-   In the left menu, select "CRAN."
+-   Choose the "Download R for Linux" option.
+-   Select the CRAN mirror closest to your location.
+-   Choose the link for your specific distribution.
+-   Follow the instructions provided on the page to install R.
 
-- In the left menu, select "CRAN."
-- Choose the "Download R for (Mac) OS X" option.
-- Select the CRAN mirror closest to your location.
-- Choose the version you want (usually the latest version with a filename like "R-x.x.x.pkg").
-- Double-click the downloaded file and follow the installation instructions.
+### On macOS
 
+-   In the left menu, select "CRAN."
+-   Choose the "Download R for (Mac) OS X" option.
+-   Select the CRAN mirror closest to your location.
+-   Choose the version you want (usually the latest version with a filename like "R-x.x.x.pkg").
+-   Double-click the downloaded file and follow the installation instructions.
 
-# Fist steps
+## Installing Rstudio
 
-## The Rstudio IDE
+To install RStudio on Windows, follow these steps:
+
+1.  Visit the RStudio downloads page by clicking on the link below:
+
+    [RStudio Downloads Page](https://rstudio.com/products/rstudio/download/#download)
+
+2.  Download the version that matches your operating system from the "All Installers" list.
+
+3.  Double-click the file you downloaded from the RStudio page and follow the installation instructions.
+
+## Integrated Development Environments (IDEs)
+
+### The Rstudio IDE
 
 Integrated Development Environments (IDEs) play a crucial role in programming, providing an interactive and organized environment for developers. In the realm of the R programming language, one of the most popular IDEs is RStudio.
 
@@ -51,6 +64,28 @@ RStudio is an open-source IDE specifically designed for R. It offers several key
 
 4.  **RData Files:** RData files are native R data files used to save and load R objects (e.g., data frames, lists, variables) for reuse in R sessions.
 
-In summary, RStudio is a powerful and versatile IDE for R, catering to data scientists, analysts, and developers. Its user-friendly interface and integrated features enhance productivity and efficiency in data analysis and statistical programming.
+RStudio is a powerful and versatile IDE for R, catering to data scientists, analysts, and developers. Its user-friendly interface and integrated features enhance productivity and efficiency in data analysis and statistical programming.
 
-For more advanced features like version control integration, dynamic report generation with R Markdown, advanced debugging, interactive plotting, and package management, explore the extensive capabilities of RStudio.
+### Cheat Sheets
+
+When it comes to learning more about RStudio and various R libraries, an invaluable resource at your disposal is the cheat sheets.
+
+In RStudio, cheat sheets are available to provide concise summaries on how to utilize a range of packages, including insights into the functionality of RStudio itself. To access these cheat sheets, simply follow these steps:
+
+1.  Launch RStudio.
+
+2.  Navigate to the "Help" menu located in the top menu bar of the window.
+
+3.  Within the "Help" menu, you'll discover an option labeled "Cheat Sheets." Click on this option.
+
+4.  This action will present you with a selection of available cheat sheets. Choose the one that is pertinent to the package or subject matter you wish to delve into.
+
+5.  Click on the specific cheat sheet of your choice to open it. It will be displayed in a new browser tab or in a PDF viewer, depending on your RStudio's configuration.
+
+These cheat sheets contain succinct information and valuable insights on how to effectively utilize a variety of R features and specific packages. They serve as an excellent resource for swift reference and efficient learning.
+
+![The Rstudio cheat sheet](images/rstudio-ide.pdf){style="filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));" fig-align="center" width="1080"}
+
+
+---
+

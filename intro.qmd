@@ -117,18 +117,24 @@ Our aim is to provide you with the foundational knowledge and practical skills r
 
 Without delay, let's start exploring the potential of R and the tidyverse, empowering you to turn data into valuable insights and practical outcomes.
 
-::: callout-note
-Note that there are five types of callouts, including: `note`, `warning`, `important`, `tip`, and `caution`.
-:::
+<!-- ::: callout-note -->
 
-::: callout-tip
-## Tip with Title
+<!-- Note that there are five types of callouts, including: `note`, `warning`, `important`, `tip`, and `caution`. -->
 
-This is an example of a callout with a title.
-:::
+<!-- ::: -->
 
-::: {.callout-caution collapse="true"}
-## Expand To Learn About Collapse
+<!-- ::: callout-tip -->
 
-This is an example of a 'folded' caution callout that can be expanded by the user. You can use `collapse="true"` to collapse it by default or `collapse="false"` to make a collapsible callout that is expanded by default.
-:::
+<!-- ## Tip with Title -->
+
+<!-- This is an example of a callout with a title. -->
+
+<!-- ::: -->
+
+<!-- ::: {.callout-caution collapse="true"} -->
+
+<!-- ## Expand To Learn About Collapse -->
+
+<!-- This is an example of a 'folded' caution callout that can be expanded by the user. You can use `collapse="true"` to collapse it by default or `collapse="false"` to make a collapsible callout that is expanded by default. -->
+
+<!-- ::: -->

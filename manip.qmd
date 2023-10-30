@@ -1,0 +1,404 @@
+# Data manipulation
+
+```{r, include=FALSE}
+library(tidyverse)
+# Define the URL of the dataset
+data_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/state_milk_production.csv"
+
+
+# Import data from the internet
+state_milk_production <- read_csv(data_url, show_col_types = FALSE)
+```
+
+In this section, we will explore data manipulation techniques using the tidyverse package in R. We will work with a dataset previously imported from the web, specifically the `state_milk_production.csv`. The dataset describes milk production across different states in the United States along the last 53 years.
+
+You can access the original data [here](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-01-29). The dataset contains the following variables:
+
+| Variable      | Class     | Description             |
+|---------------|-----------|-------------------------|
+| region        | character | Region of the US        |
+| state         | character | US State                |
+| year          | date      | Year                    |
+| milk_produced | double    | Pounds of Milk Produced |
+
+------------------------------------------------------------------------
+
+## Basic Data Manipulation with dplyr
+
+We'll cover the fundamental data manipulation functions provided by the `dplyr` package in R such as: `mutate()` for adding or modifying variables, `summarize()` for calculating summary statistics 
+,`group_by()` and `ungroup()` for grouping and ungrouping data,`filter()` fro filtering rows, `select()` for selecting columns and `arrange()` for sorting data.
+
+---
+
+### `mutate()` - Adding or Modifying Variables {.unnumbered}
+
+The `mutate()` function is used to create new variables or modify existing ones.
+
+```{r}
+# Adding a new variable: milk_per_cow_kg
+mutated_data <- state_milk_production |>
+  mutate(milk_produced_kg = milk_produced * 0.453592)  # Convert pounds to kilograms
+
+print(mutated_data)
+```
+
+---
+
+### `summarize()` - Calculating Summary Statistics {.unnumbered}
+
+The `summarize()` function calculates summary statistics for a specific group.
+
+```{r}
+# Calculate the total milk produced for each state
+summary_data <- state_milk_production |>
+  group_by(state) |>
+  summarize(total_milk_produced = sum(milk_produced))
+print(summary_data)
+```
+
+---
+
+### `group_by()` - Grouping Data {.unnumbered}
+
+The `group_by()` function is used to group data by a specific variable. 
+
+```{r}
+# Group data by year and calculate the average milk produced
+grouped_data <- state_milk_production |>
+  group_by(year) |>
+  summarize(avg_milk_produced = mean(milk_produced))
+
+print(grouped_data)
+```
+---
+
+### `filter()` - Filtering Rows {.unnumbered}
+
+The `filter()` function is used to filter rows based on a condition.
+
+```{r}
+# Filter data for the year 2022
+filtered_data <- state_milk_production %>%
+  filter(year == 2022)
+
+print(filtered_data)
+```
+
+---
+
+### `select()` - Selecting Columns {.unnumbered}
+
+The `select()` function is used to select specific columns.
+
+```{r}
+# Select only the "state" and "milk_produced" columns
+selected_data <- state_milk_production %>%
+  select(state, milk_produced)
+
+print(selected_data)
+```
+
+---
+
+### `arrange()` - Sorting Data
+
+The `arrange()` function is used to sort data by one or more variables.
+
+```{r}
+# Arrange data by year in descending order
+sorted_data <- state_milk_production %>%
+  arrange(desc(year))
+
+print(sorted_data)
+```
+
+------------------------------------------------------------------------
+
+## Extended Data Manipulation with dplyr
+
+In order to demonstrate advanced data manipulation with the `dplyr` package, we'll begin by importing another dataset from the United States Department of Agriculture (USDA), known as the 'milkcow_facts.csv' dataset.
+
+You can access the original data [here](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-01-29). The dataset contains the following variables:
+
+| Variable                      | Class  | Description                                                  |
+|--------------------|---------------|-------------------------------------|
+| year                          | date   | Year                                                         |
+| avg_milk_cow_number           | double | Average number of milk cows                                  |
+| milk_per_cow                  | double | Average milk production per cow in pounds                    |
+| milk_production_lbs           | double | Total milk production in pounds                              |
+| avg_price_milk                | double | Average price paid for milk (dollars per pound)              |
+| dairy_ration                  | double | Average price paid for dairy cow rations (dollars per pound) |
+| milk_feed_price_ratio         | double | Ratio of average price of milk per dairy cow ration          |
+| milk_cow_cost_per_animal      | double | Average cost of a milk cow per animal (dollars)              |
+| milk_volume_to_buy_cow_in_lbs | double | Milk volume required to purchase a cow (pounds)              |
+| alfalfa_hay_price             | double | Alfalfa hay price received by farmers (tons)                 |
+| slaughter_cow_price           | double | Slaughter cow price (value of meat in dollars per pound)     |
+
+The subsequent code imports data using the method previously introduced in the preceding chapter:
+
+```{r}
+# Define the URL of the dataset
+data_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milkcow_facts.csv"
+
+# Import data from the internet
+milk_cow_facts <- read_csv(data_url, show_col_types = FALSE)
+```
+
+### `join()` - Combining datasets {.unnumbered}
+
+The `join()` function is used to combine multiple datasets based on common keys, allowing you to create more complex datasets.
+
+```{r}
+# Joining two datasets based on a common variable (e.g., year)
+combined_data <- milk_cow_facts |>
+  left_join(grouped_data, by = "year")
+
+print(combined_data)
+```
+---
+
+### Advanced Filtering with `between()` {.unnumbered}
+
+In data analysis, advanced filtering often requires the ability to select rows based on specific numeric ranges. The `between()` function in R is a powerful tool that enables advanced filtering by allowing you to extract rows where a variable falls within a defined range. Let's explore how to use this function for more complex filtering tasks. For instance, suppose you want to perform advanced filtering to select rows with years falling within the range of 2015 to 2020:
+
+```{r}
+# Advanced filtering: Select data for a specific range of years
+filtered_data <- state_milk_production |>
+  filter(between(year, 2015, 2020))
+
+print(filtered_data)
+```
+---
+
+### `case_when()` - Conditional transformations filtered_data {.unnumbered}
+
+The `case_when()` function is used to perform conditional transformations, allowing you to create new variables based on multiple conditions.
+
+```{r}
+# Create a new variable "milk_prod" based on conditions
+transformed_data <- milk_cow_facts |>
+  mutate(milk_prod = case_when(
+    milk_per_cow > 19000 ~ "High",
+    milk_per_cow > 14000 ~ "Medium",
+    TRUE ~ "Low"
+  ))
+
+print(transformed_data)
+```
+
+---
+
+### `mutate_at()` - Applying functions to multiple columns. {.unnumbered}
+
+The `mutate_at()` function allows you to apply a function to multiple columns simultaneously.
+
+```{r}
+# Apply the transformation to selected columns
+transformed_data <- milk_cow_facts |>
+  mutate_at(vars(milk_production_lbs, milk_per_cow), function(x) x * 0.453592)
+
+print(transformed_data)
+
+```
+
+
+---
+
+### `group_by()` with multiple variables - Multi-level grouping {.unnumbered}
+
+You can use `group_by()` with multiple variables to create multi-level grouping for more complex summaries.
+
+```{r, message=FALSE}
+# Group data by region and year and calculate summary statistics
+multi_level_grouped_data <- state_milk_production |>
+  group_by(region, year) |>
+  summarize(total_milk_produced = sum(milk_produced))
+
+print(multi_level_grouped_data)
+```
+
+---
+
+## Exercises 
+
+
+### Exercise 1: Filtering and Selecting {.unnumbered}
+
+Filter the `milk_cow_facts` dataset to retain only rows for the year 2015. Then, select and display the total milk production in pounds (`milk_produced`).
+
+```{r}
+# Exercise 1: Filtering and Selecting
+filtered_data <- state_milk_production |>
+  filter(year == 2015) |>
+  select(state, milk_produced)
+
+filtered_data
+```
+
+---
+
+### Exercise 2: Grouping and Summarizing {.unnumbered}
+
+Group the `milkcow_facts` dataset by the `year` variable. Calculate the average milk production per cow (`milk_per_cow`) for each year.
+
+```{r}
+# Exercise 2: Grouping and Summarizing
+summary_data <- milk_cow_facts |>
+  group_by(year) |>
+  summarize(avg_milk_per_cow = mean(milk_per_cow, na.rm = TRUE))
+
+summary_data
+```
+---
+
+### Exercise 3: Calculating New Variables {.unnumbered}
+
+In the `milk_cow_facts` dataset, calculate the ratio of the average price of milk per dairy cow ration (`milk_feed_price_ratio`) by dividing the average price paid for milk (`avg_price_milk`) by the average price paid for dairy cow rations (`dairy_ration`) in 2013.
+
+```{r}
+
+# Exercise 3: Calculating New Variables and filtering
+milkcow_facts_2013 <- milk_cow_facts |>
+  filter(year == 2013) |>
+  mutate(milk_feed_price_ratio = avg_price_milk / dairy_ration)
+
+milkcow_facts_2013
+```
+
+
+---
+
+
+### Exercise 4: Filter and sorting Data {.unnumbered}
+
+Sort the `state_milk_production` dataset in descending order based on the `milk_produced` variable in 2014. Display the top 10 states with the highest production of milk in this year.
+
+```{r}
+# Exercise 4: Sorting Data
+sorted_data <- state_milk_production %>%
+  filter(year == 2014) %>%
+  arrange(desc(milk_produced)) %>%
+  head(10)
+
+sorted_data
+```
+---
+
+### Exercise 5: Preparing Data for `ggplot2` Visualization {.unnumbered}
+
+
+For our upcoming exercise, we will be working with another two datasets: `milk_products_facts` and `clean_cheese`. These datasets offer valuable insights into consumption patterns of various dairy and cheese products in the United States over the years.
+
+To import the `milk_products_facts` dataset, use the following code:
+
+```{r}
+# Define the URL of the dataset for milk products
+milk_products_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milk_products_facts.csv"
+
+# Import data from the internet
+milk_products_facts <- read.csv(milk_products_url)
+```
+
+To import the `clean_cheese` dataset, use the following code:
+
+```{r}
+# Define the URL of the dataset for clean cheese products
+clean_cheese_url <- "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/clean_cheese.csv"
+
+# Import data from the internet
+clean_cheese <- read.csv(clean_cheese_url)
+```
+
+Here's a complete overview of the variables within each dataset:
+
+**milk_products_facts:**
+
+| Variable                             | Class    | Description                                              |
+|--------------------------------------|----------|----------------------------------------------------------|
+| year                                 | date     | Year                                                     |
+| fluid_milk                           | double   | Average milk consumption in pounds per person           |
+| fluid_yogurt                         | double   | Average yogurt consumption in pounds per person         |
+| butter                               | double   | Average butter consumption in pounds per person         |
+| cheese_american                      | double   | Average American cheese consumption in pounds per person|
+| cheese_other                         | double   | Average other cheese consumption in pounds per person   |
+| cheese_cottage                       | double   | Average cottage cheese consumption in pounds per person |
+| evap_cnd_canned_whole_milk           | double   | Average evaporated and canned whole milk consumption in pounds per person |
+| evap_cnd_bulk_whole_milk             | double   | Average evaporated and canned bulk whole milk consumption in pounds per person |
+| evap_cnd_bulk_and_can_skim_milk      | double   | Average evaporated and canned bulk and canned skim milk consumption in pounds per person |
+| frozen_ice_cream_regular             | double   | Average regular frozen ice cream consumption in pounds per person |
+| frozen_ice_cream_reduced_fat         | double   | Average reduced-fat frozen ice cream consumption in pounds per person |
+| frozen_sherbet                       | double   | Average frozen sherbet consumption in pounds per person |
+| frozen_other                         | double   | Average consumption of other frozen milk products in pounds per person |
+| dry_whole_milk                       | double   | Average consumption of dry whole milk in pounds per person |
+| dry_nonfat_milk                      | double   | Average consumption of dry nonfat milk in pounds per person |
+| dry_buttermilk                       | double   | Average consumption of dry buttermilk in pounds per person |
+| dry_whey                             | double   | Average consumption of dry whey (milk protein) in pounds per person |
+
+**clean_cheese:**
+
+| Variable                             | Class    | Description                                              |
+|--------------------------------------|----------|----------------------------------------------------------|
+| Year                                 | date     | Year                                                     |
+| Cheddar                              | double   | Cheddar consumption in pounds per person                 |
+| American Other                       | double   | American Other consumption in pounds per person          |
+| Mozzarella                           | double   | Mozzarella consumption in pounds per person              |
+| Italian Other                        | double   | Italian Other consumption in pounds per person           |
+| Swiss                                | double   | Swiss consumption in pounds per person                   |
+| Brick                                | double   | Brick consumption in pounds per person                   |
+| Muenster                             | double   | Muenster consumption in pounds per person                |
+| Cream and Neufchatel                 | double   | Cream and Neufchatel consumption in pounds per person    |
+| Blue                                 | double   | Blue consumption in pounds per person                    |
+| Other Dairy Cheese                   | double   | Other Dairy Cheese consumption in pounds per person      |
+| Processed Cheese                     | double   | Processed Cheese consumption in pounds per person        |
+| Foods and spreads                    | double   | Foods and spreads consumption in pounds per person       |
+| Total American Cheese                | double   | Total American Cheese consumption in pounds per person   |
+| Total Italian Cheese                 | double   | Total Italian Cheese consumption in pounds per person    |
+| Total Natural Cheese                 | double   | Total Natural Cheese consumption in pounds per person    |
+| Total Processed Cheese Products      | double   | Total Processed Cheese Products consumption in pounds per person |
+
+These two datasets, like the previous ones, are also sourced from the same GitHub repository metioned before.
+
+
+ **Question** 
+
+In this exercise, we will analyze and visualize the trends in cheese consumption in the United States. Specifically, we aim to understand the relationship between the consumption of American cheese and mozzarella cheese over the years.
+
+**Instructions:**
+
+1. Select relevant variables from each dataset. From "milk_products_facts," select "year" and "cheese_american." From "clean_cheese," select "Year" and "Mozzarella."
+
+2. Merge the datasets using a common variable, which is "year."
+
+3. Calculate the ratio of American cheese consumption to mozzarella consumption for each year.
+
+4. Create a line plot using the `ggplot2` package to visualize how the ratio of American cheese consumption to mozzarella consumption has changed over the years.
+
+
+**Answer:**
+
+```{r}
+# Perform data manipulation
+milk_products_facts <- milk_products_facts %>%
+  select(year, cheese_american) 
+
+clean_cheese <- clean_cheese %>%
+  select(Year, Mozzarella) 
+
+# Merge the datasets on the "year" variable
+merged_data <- left_join(milk_products_facts, clean_cheese, by = c("year" = "Year"))
+
+# Calculate the ratio of American cheese consumption to mozzarella consumption
+merged_data <- merged_data %>%
+  mutate(ratio = cheese_american / Mozzarella)
+
+# Create a line plot
+ggplot(merged_data, aes(x = year, y = ratio)) +
+  geom_point() +
+  geom_line(color = "blue") +
+  labs(
+    x = "Year",
+    y = "Ratio (American Cheese / Mozzarella)",
+    title = "Ratio of American Cheese to Mozzarella Consumption Over the Years"
+  )
+```
+
