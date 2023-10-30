@@ -8,7 +8,7 @@
 
 <meta name="author" content="Edgar Vismara and Frederico Vieira">
 
-<title>Analysis of the behavior of dairy cattle using R - 2&nbsp; Installing R nad Rstudio</title>
+<title>Analysis of the behavior of dairy cattle using R - 2&nbsp; Installation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="./start.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R nad Rstudio</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="./start.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R nad Rstudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -182,14 +182,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#on-windows" id="toc-on-windows" class="nav-link active" data-scroll-target="#on-windows"><span class="header-section-number">2.1</span> On Windows</a></li>
-  <li><a href="#on-linux" id="toc-on-linux" class="nav-link" data-scroll-target="#on-linux"><span class="header-section-number">2.2</span> On Linux</a></li>
-  <li><a href="#on-macos" id="toc-on-macos" class="nav-link" data-scroll-target="#on-macos"><span class="header-section-number">2.3</span> On macOS</a></li>
-  <li><a href="#installing-rstudio" id="toc-installing-rstudio" class="nav-link" data-scroll-target="#installing-rstudio"><span class="header-section-number">3</span> Installing Rstudio</a></li>
-  <li><a href="#integrated-development-environments-ides" id="toc-integrated-development-environments-ides" class="nav-link" data-scroll-target="#integrated-development-environments-ides"><span class="header-section-number">4</span> Integrated Development Environments (IDEs)</a>
+  <li><a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link active" data-scroll-target="#installing-r-and-rstudio"><span class="header-section-number">2.1</span> Installing R and Rstudio</a>
   <ul class="collapse">
-  <li><a href="#the-rstudio-ide" id="toc-the-rstudio-ide" class="nav-link" data-scroll-target="#the-rstudio-ide"><span class="header-section-number">4.1</span> The Rstudio IDE</a></li>
-  <li><a href="#cheat-sheets" id="toc-cheat-sheets" class="nav-link" data-scroll-target="#cheat-sheets"><span class="header-section-number">4.2</span> Cheat Sheets</a></li>
+  <li><a href="#on-windows" id="toc-on-windows" class="nav-link" data-scroll-target="#on-windows"><span class="header-section-number">2.1.1</span> On Windows</a></li>
+  <li><a href="#on-linux" id="toc-on-linux" class="nav-link" data-scroll-target="#on-linux"><span class="header-section-number">2.1.2</span> On Linux</a></li>
+  <li><a href="#on-macos" id="toc-on-macos" class="nav-link" data-scroll-target="#on-macos"><span class="header-section-number">2.1.3</span> On macOS</a></li>
+  </ul></li>
+  <li><a href="#installing-rstudio" id="toc-installing-rstudio" class="nav-link" data-scroll-target="#installing-rstudio"><span class="header-section-number">2.2</span> Installing Rstudio</a></li>
+  <li><a href="#integrated-development-environments-ides" id="toc-integrated-development-environments-ides" class="nav-link" data-scroll-target="#integrated-development-environments-ides"><span class="header-section-number">2.3</span> Integrated Development Environments (IDEs)</a>
+  <ul class="collapse">
+  <li><a href="#the-rstudio-ide" id="toc-the-rstudio-ide" class="nav-link" data-scroll-target="#the-rstudio-ide"><span class="header-section-number">2.3.1</span> The Rstudio IDE</a></li>
+  <li><a href="#cheat-sheets" id="toc-cheat-sheets" class="nav-link" data-scroll-target="#cheat-sheets"><span class="header-section-number">2.3.2</span> Cheat Sheets</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -199,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R nad Rstudio</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></h1>
 </div>
 
 
@@ -214,9 +217,11 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="installing-r-and-rstudio" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="installing-r-and-rstudio"><span class="header-section-number">2.1</span> Installing R and Rstudio</h2>
 <p>To install R, go to the official R website: <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a> and follow these steps based on your operating system:</p>
-<section id="on-windows" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="on-windows"><span class="header-section-number">2.1</span> On Windows</h2>
+<section id="on-windows" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="on-windows"><span class="header-section-number">2.1.1</span> On Windows</h3>
 <ul>
 <li>In the left menu, select “CRAN.”</li>
 <li>Choose the “Download R for Windows” option.</li>
@@ -226,8 +231,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Double-click the downloaded file and follow the installation instructions.</li>
 </ul>
 </section>
-<section id="on-linux" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="on-linux"><span class="header-section-number">2.2</span> On Linux</h2>
+<section id="on-linux" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="on-linux"><span class="header-section-number">2.1.2</span> On Linux</h3>
 <ul>
 <li>In the left menu, select “CRAN.”</li>
 <li>Choose the “Download R for Linux” option.</li>
@@ -236,8 +241,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Follow the instructions provided on the page to install R.</li>
 </ul>
 </section>
-<section id="on-macos" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="on-macos"><span class="header-section-number">2.3</span> On macOS</h2>
+<section id="on-macos" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="on-macos"><span class="header-section-number">2.1.3</span> On macOS</h3>
 <ul>
 <li>In the left menu, select “CRAN.”</li>
 <li>Choose the “Download R for (Mac) OS X” option.</li>
@@ -246,8 +251,9 @@ ul.task-list li input[type="checkbox"] {
 <li>Double-click the downloaded file and follow the installation instructions.</li>
 </ul>
 </section>
-<section id="installing-rstudio" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Installing Rstudio</h1>
+</section>
+<section id="installing-rstudio" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="installing-rstudio"><span class="header-section-number">2.2</span> Installing Rstudio</h2>
 <p>To install RStudio on Windows, follow these steps:</p>
 <ol type="1">
 <li><p>Visit the RStudio downloads page by clicking on the link below:</p>
@@ -256,10 +262,10 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Double-click the file you downloaded from the RStudio page and follow the installation instructions.</p></li>
 </ol>
 </section>
-<section id="integrated-development-environments-ides" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Integrated Development Environments (IDEs)</h1>
-<section id="the-rstudio-ide" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="the-rstudio-ide"><span class="header-section-number">4.1</span> The Rstudio IDE</h2>
+<section id="integrated-development-environments-ides" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="integrated-development-environments-ides"><span class="header-section-number">2.3</span> Integrated Development Environments (IDEs)</h2>
+<section id="the-rstudio-ide" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="the-rstudio-ide"><span class="header-section-number">2.3.1</span> The Rstudio IDE</h3>
 <p>Integrated Development Environments (IDEs) play a crucial role in programming, providing an interactive and organized environment for developers. In the realm of the R programming language, one of the most popular IDEs is RStudio.</p>
 <div class="quarto-figure quarto-figure-center" style="filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));">
 <figure class="figure">
@@ -282,8 +288,8 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>RStudio is a powerful and versatile IDE for R, catering to data scientists, analysts, and developers. Its user-friendly interface and integrated features enhance productivity and efficiency in data analysis and statistical programming.</p>
 </section>
-<section id="cheat-sheets" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="cheat-sheets"><span class="header-section-number">4.2</span> Cheat Sheets</h2>
+<section id="cheat-sheets" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="cheat-sheets"><span class="header-section-number">2.3.2</span> Cheat Sheets</h3>
 <p>When it comes to learning more about RStudio and various R libraries, an invaluable resource at your disposal is the cheat sheets.</p>
 <p>In RStudio, cheat sheets are available to provide concise summaries on how to utilize a range of packages, including insights into the functionality of RStudio itself. To access these cheat sheets, simply follow these steps:</p>
 <ol type="1">
@@ -300,6 +306,7 @@ ul.task-list li input[type="checkbox"] {
 <figcaption class="figure-caption">The Rstudio cheat sheet</figcaption>
 </figure>
 </div>
+<hr>
 
 
 </section>
