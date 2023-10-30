@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Edgar Vismara and Frederico Vieira">
-<title>Analysis of the behavior of dairy cattle using R - 3&nbsp; Exponential family of distributions</title>
+<title>Analysis of the behavior of dairy cattle using R - 6&nbsp; Exponential family of distributions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -46,7 +46,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./start.html" rel="prev">
+<link href="./visual.html" rel="prev">
 <link href="./cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -84,7 +84,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dist.html">Statistical Modeling of Dairy Cattle Behavior</a></li><li class="breadcrumb-item"><a href="./dist.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dist.html">Statistical Modeling of Dairy Cattle Behavior</a></li><li class="breadcrumb-item"><a href="./dist.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -136,7 +136,25 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R nad Rstudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
   </div>
 </li>
       </ul>
@@ -153,7 +171,7 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dist.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></span></a>
   </div>
 </li>
       </ul>
@@ -166,17 +184,18 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#gaussian-normal-distribution" id="toc-gaussian-normal-distribution" class="nav-link active" data-scroll-target="#gaussian-normal-distribution"><span class="header-section-number">3.1</span> Gaussian (Normal) Distribution</a></li>
-  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution"><span class="header-section-number">3.2</span> Poisson Distribution</a></li>
-  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution"><span class="header-section-number">3.3</span> Binomial Distribution</a></li>
-  <li><a href="#beta-distribution" id="toc-beta-distribution" class="nav-link" data-scroll-target="#beta-distribution"><span class="header-section-number">3.4</span> Beta Distribution</a></li>
-  <li><a href="#gamma-distribution" id="toc-gamma-distribution" class="nav-link" data-scroll-target="#gamma-distribution"><span class="header-section-number">3.5</span> Gamma Distribution</a></li>
+<li><a href="#gaussian-normal-distribution" id="toc-gaussian-normal-distribution" class="nav-link active" data-scroll-target="#gaussian-normal-distribution"><span class="header-section-number">6.1</span> Gaussian (Normal) Distribution</a></li>
+  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution"><span class="header-section-number">6.2</span> Poisson Distribution</a></li>
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution"><span class="header-section-number">6.3</span> Binomial Distribution</a></li>
+  <li><a href="#beta-distribution" id="toc-beta-distribution" class="nav-link" data-scroll-target="#beta-distribution"><span class="header-section-number">6.4</span> Beta Distribution</a></li>
+  <li><a href="#gamma-distribution" id="toc-gamma-distribution" class="nav-link" data-scroll-target="#gamma-distribution"><span class="header-section-number">6.5</span> Gamma Distribution</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span>
+<span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span>
 </h1>
 </div>
 
@@ -191,23 +210,23 @@ div.csl-indent {
   
 
 </header><p>The exponential family is a broad class of probability distributions that includes well-known distributions such as the Gaussian (Normal), Poisson, Binomial, Beta, and Gamma distributions. These distributions can be expressed in the form of the exponential family, sharing a common structure.</p>
-<section id="gaussian-normal-distribution" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="gaussian-normal-distribution">
-<span class="header-section-number">3.1</span> Gaussian (Normal) Distribution</h2>
+<section id="gaussian-normal-distribution" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="gaussian-normal-distribution">
+<span class="header-section-number">6.1</span> Gaussian (Normal) Distribution</h2>
 <p>The Gaussian distribution is characterized by a bell-shaped curve and is widely used in various fields of science and statistics <span class="citation" data-cites="GaussianCitation">(<a href="#ref-GaussianCitation" role="doc-biblioref">Galton 1875</a>)</span>. Its probability density function (PDF) is defined as:</p>
 <p><span class="math display">\[\begin{equation}
 f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
 \end{equation}\]</span></p>
-</section><section id="poisson-distribution" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="poisson-distribution">
-<span class="header-section-number">3.2</span> Poisson Distribution</h2>
+</section><section id="poisson-distribution" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="poisson-distribution">
+<span class="header-section-number">6.2</span> Poisson Distribution</h2>
 <p>The Poisson distribution models events occurring in fixed intervals of time or space. It is another example of an exponential family distribution when expressed in the right form.</p>
-</section><section id="binomial-distribution" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="binomial-distribution">
-<span class="header-section-number">3.3</span> Binomial Distribution</h2>
+</section><section id="binomial-distribution" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="binomial-distribution">
+<span class="header-section-number">6.3</span> Binomial Distribution</h2>
 <p>The binomial distribution describes the number of successes in a fixed number of Bernoulli trials. When appropriately parameterized, it is also a member of the exponential family.</p>
-</section><section id="beta-distribution" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="beta-distribution">
-<span class="header-section-number">3.4</span> Beta Distribution</h2>
+</section><section id="beta-distribution" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="beta-distribution">
+<span class="header-section-number">6.4</span> Beta Distribution</h2>
 <p>The beta distribution is used for modeling probabilities or proportions. It, too, can be derived from the exponential family when the parameters align with the framework.</p>
-</section><section id="gamma-distribution" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="gamma-distribution">
-<span class="header-section-number">3.5</span> Gamma Distribution</h2>
+</section><section id="gamma-distribution" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="gamma-distribution">
+<span class="header-section-number">6.5</span> Gamma Distribution</h2>
 <p>The gamma distribution is often used to model wait times and can be expressed as a member of the exponential family by selecting the appropriate parameters.</p>
 <p>In the figures below, you can see how these distributions align with the exponential family framework:</p>
 <div class="cell">
@@ -218,6 +237,7 @@ f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\
 <p>These graphical representations illustrate how these common distributions fit the structure of the exponential family, allowing for a unified understanding of their relationships and facilitating statistical inference and modeling.</p>
 
 
+</section><section id="bibliography" class="level1 unnumbered"><h1 class="unnumbered">References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-GaussianCitation" class="csl-entry" role="listitem">
 Galton, Sir Francis. 1875. <span>“On the Probability of the Extinction of Families.”</span> <em>Journal of the Anthropological Institute of Great Britain and Ireland</em> 4: 138–44.
@@ -456,8 +476,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./start.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R</span></span>
+      <a href="./visual.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data visualization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

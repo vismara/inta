@@ -1,10 +1,38 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Analysis of the behavior of dairy cattle using R",
+    "objectID": "start.html",
+    "href": "start.html",
+    "title": "2  Installing R nad Rstudio",
     "section": "",
-    "text": "Preface\nWelcome to this online course on “Analysis of the behavior of dairy cattle using R”. This tutorial is divided into two parts, each of which plays a critical role in understanding and applying data-driven insights to the study of dairy cattle behavior, particularly in response to various human interventions, with a focus on enviromental conditions.\nPart 1, “Introduction to R,” provides the foundation for data analysis and visualization. In this section, we will introduce you to R, a powerful programming language and environment for statistical computing and graphics. We will explore the basics of R, from setting up the environment to performing data manipulation and visualization. These skills are essential for conducting the advanced statistical analysis presented in Part 2.\nPart 2, “Statistical Modeling of Dairy Cattle Behavior”, delves deep into the world of data-driven analysis specific to dairy cattle behavior. You will learn how to collect and preprocess behavioral data, and then apply advanced statistical modeling techniques to understand how climate conditions and other human interventions impact the behavior of dairy cattle.\nThis course is designed to provide elementary skills and knowledge necessary to conduct useful statistical analysis in the context of dairy cattle behavior. Whether you are a scientist, a farmer, a professional or a student, this course will provide you with the tools needed to make informed decisions and contribute to the welfare and productivity of dairy cattle."
+    "text": "3 Installing Rstudio\nTo install RStudio on Windows, follow these steps:"
+  },
+  {
+    "objectID": "start.html#on-windows",
+    "href": "start.html#on-windows",
+    "title": "2  Installing R nad Rstudio",
+    "section": "2.1 On Windows",
+    "text": "2.1 On Windows\n\nIn the left menu, select “CRAN.”\nChoose the “Download R for Windows” option.\nSelect the “base” option.\nOn the following page, choose the CRAN mirror closest to your location.\nDownload the latest version (e.g., “R-x.x.x for Windows”).\nDouble-click the downloaded file and follow the installation instructions."
+  },
+  {
+    "objectID": "start.html#on-linux",
+    "href": "start.html#on-linux",
+    "title": "2  Installing R nad Rstudio",
+    "section": "2.2 On Linux",
+    "text": "2.2 On Linux\n\nIn the left menu, select “CRAN.”\nChoose the “Download R for Linux” option.\nSelect the CRAN mirror closest to your location.\nChoose the link for your specific distribution.\nFollow the instructions provided on the page to install R."
+  },
+  {
+    "objectID": "start.html#on-macos",
+    "href": "start.html#on-macos",
+    "title": "2  Installing R nad Rstudio",
+    "section": "2.3 On macOS",
+    "text": "2.3 On macOS\n\nIn the left menu, select “CRAN.”\nChoose the “Download R for (Mac) OS X” option.\nSelect the CRAN mirror closest to your location.\nChoose the version you want (usually the latest version with a filename like “R-x.x.x.pkg”).\nDouble-click the downloaded file and follow the installation instructions."
+  },
+  {
+    "objectID": "start.html#the-rstudio-ide",
+    "href": "start.html#the-rstudio-ide",
+    "title": "2  Installing R nad Rstudio",
+    "section": "4.1 The Rstudio IDE",
+    "text": "4.1 The Rstudio IDE\nIntegrated Development Environments (IDEs) play a crucial role in programming, providing an interactive and organized environment for developers. In the realm of the R programming language, one of the most popular IDEs is RStudio.\n\n\n\nA view of RStudio IDE\n\n\nRStudio is an open-source IDE specifically designed for R. It offers several key components:\n\nRStudio Interface:\n\nConsole: Execute R commands interactively.\nScript Editor: Write and edit R scripts with syntax highlighting and code suggestions.\nEnvironment and History: Monitor variables and functions, review command history.\nPlots and Visualizations: View interactive graphics generated from your code.\n\nProject Concept: RStudio encourages the use of projects to organize your data analysis or R development work. A project is an isolated workspace that contains all project-related files, scripts, data, and settings, enhancing organization and collaboration.\nR Scripts: R scripts are files containing R code for batch or interactive execution. Create and edit R scripts directly in RStudio, with integrated variable and object management.\nRData Files: RData files are native R data files used to save and load R objects (e.g., data frames, lists, variables) for reuse in R sessions.\n\nRStudio is a powerful and versatile IDE for R, catering to data scientists, analysts, and developers. Its user-friendly interface and integrated features enhance productivity and efficiency in data analysis and statistical programming."
   },
   {
     "objectID": "intro.html#the-r-language",
@@ -28,73 +56,115 @@
     "text": "1.3 Navigating the Tidyverse in R\nIn the following sections, we will dive into the practical application of R and the Tidyverse libraries. This guide aims to provide a hands-on demonstration of how to effectively use R and the Tidyverse for data manipulation and analysis.\nWe will explore a set of examples that illustrate the integration of Tidyverse libraries, such as dplyr for data manipulation and ggplot2 for data visualization, among others. These libraries have significantly improved the way data scientists and analysts work with data, streamlining the entire process and making it more accessible.\n\n1.3.1 Key Topics to Be Covered\n\nData Manipulation with dplyr: We will walk through the process of using dplyr functions like filter(), mutate(), select(), and more to efficiently filter, transform, and summarize data.\nTaming Data with tidyr: You will learn how to reshape and tidy your data with the tidyr package, making it easier to work with in downstream analyses.\nChaining Operations with the Pipe Operator (|&gt;): Building on the concept introduced earlier, we will explore how to use the pipe operator to create clear and efficient data manipulation workflows.\nGrouping and Aggregating Data: group_by() and summarize(): Discover how to group data by specific variables and then calculate summary statistics for those groups.\nData Visualization with ggplot2: We’ll demonstrate how to create stunning and informative data visualizations using the ggplot2 package, allowing you to convey your insights effectively.\n\nOur aim is to provide you with the foundational knowledge and practical skills required to begin your journey in R through the tidyverse libraries. Upon completing this material, you will emerge with a strong sense of confidence in your ability to proficiently conduct data analysis, visualization, and manipulation.\nWithout delay, let’s start exploring the potential of R and the tidyverse, empowering you to turn data into valuable insights and practical outcomes.\n\n\n\n\n\n\nNote that there are five types of callouts, including: note, warning, important, tip, and caution.\n\n\n\n\n\n\n\n\n\nTip with Title\n\n\n\nThis is an example of a callout with a title.\n\n\n\n\n\n\n\n\nExpand To Learn About Collapse\n\n\n\n\n\nThis is an example of a ‘folded’ caution callout that can be expanded by the user. You can use collapse=\"true\" to collapse it by default or collapse=\"false\" to make a collapsible callout that is expanded by default."
   },
   {
-    "objectID": "start.html",
-    "href": "start.html",
-    "title": "2  Installing R",
-    "section": "",
-    "text": "3 Fist steps"
-  },
-  {
-    "objectID": "start.html#on-windows",
-    "href": "start.html#on-windows",
-    "title": "2  Installing R",
-    "section": "2.1 On Windows",
-    "text": "2.1 On Windows\n\nIn the left menu, select “CRAN.”\nChoose the “Download R for Windows” option.\nSelect the “base” option.\nOn the following page, choose the CRAN mirror closest to your location.\nDownload the latest version (e.g., “R-x.x.x for Windows”).\nDouble-click the downloaded file and follow the installation instructions."
-  },
-  {
-    "objectID": "start.html#on-linux",
-    "href": "start.html#on-linux",
-    "title": "2  Installing R",
-    "section": "2.2 On Linux",
-    "text": "2.2 On Linux\n\nIn the left menu, select “CRAN.”\nChoose the “Download R for Linux” option.\nSelect the CRAN mirror closest to your location.\nChoose the link for your specific distribution.\nFollow the instructions provided on the page to install R."
-  },
-  {
-    "objectID": "start.html#on-macos",
-    "href": "start.html#on-macos",
-    "title": "2  Installing R",
-    "section": "2.3 On macOS",
-    "text": "2.3 On macOS\n\nIn the left menu, select “CRAN.”\nChoose the “Download R for (Mac) OS X” option.\nSelect the CRAN mirror closest to your location.\nChoose the version you want (usually the latest version with a filename like “R-x.x.x.pkg”).\nDouble-click the downloaded file and follow the installation instructions."
-  },
-  {
-    "objectID": "start.html#the-rstudio-ide",
-    "href": "start.html#the-rstudio-ide",
-    "title": "2  Installing R",
-    "section": "3.1 The Rstudio IDE",
-    "text": "3.1 The Rstudio IDE\nIntegrated Development Environments (IDEs) play a crucial role in programming, providing an interactive and organized environment for developers. In the realm of the R programming language, one of the most popular IDEs is RStudio.\n\n\n\nA view of RStudio IDE\n\n\nRStudio is an open-source IDE specifically designed for R. It offers several key components:\n\nRStudio Interface:\n\nConsole: Execute R commands interactively.\nScript Editor: Write and edit R scripts with syntax highlighting and code suggestions.\nEnvironment and History: Monitor variables and functions, review command history.\nPlots and Visualizations: View interactive graphics generated from your code.\n\nProject Concept: RStudio encourages the use of projects to organize your data analysis or R development work. A project is an isolated workspace that contains all project-related files, scripts, data, and settings, enhancing organization and collaboration.\nR Scripts: R scripts are files containing R code for batch or interactive execution. Create and edit R scripts directly in RStudio, with integrated variable and object management.\nRData Files: RData files are native R data files used to save and load R objects (e.g., data frames, lists, variables) for reuse in R sessions.\n\nIn summary, RStudio is a powerful and versatile IDE for R, catering to data scientists, analysts, and developers. Its user-friendly interface and integrated features enhance productivity and efficiency in data analysis and statistical programming.\nFor more advanced features like version control integration, dynamic report generation with R Markdown, advanced debugging, interactive plotting, and package management, explore the extensive capabilities of RStudio."
+    "objectID": "start.html#cheat-sheets",
+    "href": "start.html#cheat-sheets",
+    "title": "2  Installing R nad Rstudio",
+    "section": "4.2 Cheat Sheets",
+    "text": "4.2 Cheat Sheets\nWhen it comes to learning more about RStudio and various R libraries, an invaluable resource at your disposal is the cheat sheets.\nIn RStudio, cheat sheets are available to provide concise summaries on how to utilize a range of packages, including insights into the functionality of RStudio itself. To access these cheat sheets, simply follow these steps:\n\nLaunch RStudio.\nNavigate to the “Help” menu located in the top menu bar of the window.\nWithin the “Help” menu, you’ll discover an option labeled “Cheat Sheets.” Click on this option.\nThis action will present you with a selection of available cheat sheets. Choose the one that is pertinent to the package or subject matter you wish to delve into.\nClick on the specific cheat sheet of your choice to open it. It will be displayed in a new browser tab or in a PDF viewer, depending on your RStudio’s configuration.\n\nThese cheat sheets contain succinct information and valuable insights on how to effectively utilize a variety of R features and specific packages. They serve as an excellent resource for swift reference and efficient learning.\n\n\n\nThe Rstudio cheat sheet"
   },
   {
     "objectID": "dist.html#gaussian-normal-distribution",
     "href": "dist.html#gaussian-normal-distribution",
-    "title": "\n3  Exponential family of distributions\n",
-    "section": "\n3.1 Gaussian (Normal) Distribution",
-    "text": "3.1 Gaussian (Normal) Distribution\nThe Gaussian distribution is characterized by a bell-shaped curve and is widely used in various fields of science and statistics (Galton 1875). Its probability density function (PDF) is defined as:\n\\[\\begin{equation}\nf(x|\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)\n\\end{equation}\\]"
+    "title": "\n6  Exponential family of distributions\n",
+    "section": "\n6.1 Gaussian (Normal) Distribution",
+    "text": "6.1 Gaussian (Normal) Distribution\nThe Gaussian distribution is characterized by a bell-shaped curve and is widely used in various fields of science and statistics (Galton 1875). Its probability density function (PDF) is defined as:\n\\[\\begin{equation}\nf(x|\\mu,\\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)\n\\end{equation}\\]"
   },
   {
     "objectID": "dist.html#poisson-distribution",
     "href": "dist.html#poisson-distribution",
-    "title": "\n3  Exponential family of distributions\n",
-    "section": "\n3.2 Poisson Distribution",
-    "text": "3.2 Poisson Distribution\nThe Poisson distribution models events occurring in fixed intervals of time or space. It is another example of an exponential family distribution when expressed in the right form."
+    "title": "\n6  Exponential family of distributions\n",
+    "section": "\n6.2 Poisson Distribution",
+    "text": "6.2 Poisson Distribution\nThe Poisson distribution models events occurring in fixed intervals of time or space. It is another example of an exponential family distribution when expressed in the right form."
   },
   {
     "objectID": "dist.html#binomial-distribution",
     "href": "dist.html#binomial-distribution",
-    "title": "\n3  Exponential family of distributions\n",
-    "section": "\n3.3 Binomial Distribution",
-    "text": "3.3 Binomial Distribution\nThe binomial distribution describes the number of successes in a fixed number of Bernoulli trials. When appropriately parameterized, it is also a member of the exponential family."
+    "title": "\n6  Exponential family of distributions\n",
+    "section": "\n6.3 Binomial Distribution",
+    "text": "6.3 Binomial Distribution\nThe binomial distribution describes the number of successes in a fixed number of Bernoulli trials. When appropriately parameterized, it is also a member of the exponential family."
   },
   {
     "objectID": "dist.html#beta-distribution",
     "href": "dist.html#beta-distribution",
-    "title": "\n3  Exponential family of distributions\n",
-    "section": "\n3.4 Beta Distribution",
-    "text": "3.4 Beta Distribution\nThe beta distribution is used for modeling probabilities or proportions. It, too, can be derived from the exponential family when the parameters align with the framework."
+    "title": "\n6  Exponential family of distributions\n",
+    "section": "\n6.4 Beta Distribution",
+    "text": "6.4 Beta Distribution\nThe beta distribution is used for modeling probabilities or proportions. It, too, can be derived from the exponential family when the parameters align with the framework."
   },
   {
     "objectID": "dist.html#gamma-distribution",
     "href": "dist.html#gamma-distribution",
-    "title": "\n3  Exponential family of distributions\n",
-    "section": "\n3.5 Gamma Distribution",
-    "text": "3.5 Gamma Distribution\nThe gamma distribution is often used to model wait times and can be expressed as a member of the exponential family by selecting the appropriate parameters.\nIn the figures below, you can see how these distributions align with the exponential family framework:\n\n\n\n\n\nThese graphical representations illustrate how these common distributions fit the structure of the exponential family, allowing for a unified understanding of their relationships and facilitating statistical inference and modeling.\n\n\n\n\nGalton, Sir Francis. 1875. “On the Probability of the Extinction of Families.” Journal of the Anthropological Institute of Great Britain and Ireland 4: 138–44."
+    "title": "\n6  Exponential family of distributions\n",
+    "section": "\n6.5 Gamma Distribution",
+    "text": "6.5 Gamma Distribution\nThe gamma distribution is often used to model wait times and can be expressed as a member of the exponential family by selecting the appropriate parameters.\nIn the figures below, you can see how these distributions align with the exponential family framework:\n\n\n\n\n\nThese graphical representations illustrate how these common distributions fit the structure of the exponential family, allowing for a unified understanding of their relationships and facilitating statistical inference and modeling."
+  },
+  {
+    "objectID": "basics.html#objetos",
+    "href": "basics.html#objetos",
+    "title": "3  Basics",
+    "section": "3.1 Objetos",
+    "text": "3.1 Objetos"
+  },
+  {
+    "objectID": "basics.html#vetores",
+    "href": "basics.html#vetores",
+    "title": "3  Basics",
+    "section": "3.2 Vetores",
+    "text": "3.2 Vetores"
+  },
+  {
+    "objectID": "basics.html#classes",
+    "href": "basics.html#classes",
+    "title": "3  Basics",
+    "section": "3.3 Classes",
+    "text": "3.3 Classes"
+  },
+  {
+    "objectID": "basics.html#data-frames",
+    "href": "basics.html#data-frames",
+    "title": "3  Basics",
+    "section": "3.4 Data frames",
+    "text": "3.4 Data frames"
+  },
+  {
+    "objectID": "basics.html#lists",
+    "href": "basics.html#lists",
+    "title": "3  Basics",
+    "section": "3.5 Lists",
+    "text": "3.5 Lists"
+  },
+  {
+    "objectID": "basics.html#libraries",
+    "href": "basics.html#libraries",
+    "title": "3  Basics",
+    "section": "3.6 Libraries",
+    "text": "3.6 Libraries"
+  },
+  {
+    "objectID": "basics.html#import-data",
+    "href": "basics.html#import-data",
+    "title": "3  Basics",
+    "section": "3.7 Import data",
+    "text": "3.7 Import data"
+  },
+  {
+    "objectID": "manip.html#ggplot2",
+    "href": "manip.html#ggplot2",
+    "title": "4  Data manipulation",
+    "section": "4.1 ggplot2",
+    "text": "4.1 ggplot2"
+  },
+  {
+    "objectID": "visual.html#ggplot2",
+    "href": "visual.html#ggplot2",
+    "title": "5  Data visualization",
+    "section": "5.1 ggplot2",
+    "text": "5.1 ggplot2"
+  },
+  {
+    "objectID": "dist.html",
+    "href": "dist.html",
+    "title": "\n6  Exponential family of distributions\n",
+    "section": "",
+    "text": "References"
   }
 ]
