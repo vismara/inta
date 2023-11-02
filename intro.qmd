@@ -115,7 +115,7 @@ We will explore a set of examples that illustrate the integration of Tidyverse l
 
 Our aim is to provide you with the foundational knowledge and practical skills required to begin your journey in R through the tidyverse libraries. Upon completing this material, you will emerge with a strong sense of confidence in your ability to proficiently conduct data analysis, visualization, and manipulation.
 
-Without delay, let's start exploring the potential of R and the tidyverse, empowering you to turn data into valuable insights and practical outcomes.
+<!-- Without delay, let's start exploring the potential of R and the tidyverse, empowering you to turn data into valuable insights and practical outcomes. -->
 
 <!-- ::: callout-note -->
 

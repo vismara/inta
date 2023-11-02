@@ -118,7 +118,6 @@ colnames(cow_weight_matrix) <- c("Week1", "Week2")
 rownames(cow_weight_matrix) <- c("Cow1", "Cow2", "Cow3", "Cow4", "Cow5")
 ```
 
-
 ### Data Frames
 
 Data frames are a common data structure in R, designed for tabular data. They can store different types of data (e.g., scalars, vectors) in columns. You might use data frames to organize data like cow ID, age, weight, and milk production.
@@ -136,12 +135,11 @@ dairy_cows <- data.frame(
 )
 ```
 
-
 ## Pre-compiled Functions
 
 R provides pre-compiled functions and data structures that optimize the efficiency of working with these objects. Some of these functions have been demonstrated in the earlier examples, including:
 
-- **Combining elements**: The `c()` function is fundamental in R for creating vectors by combining individual elements. 
+-   **Combining elements**: The `c()` function is fundamental in R for creating vectors by combining individual elements.
 -   **Matrices:** You can create matrices using the `matrix()` function to organize structured data.
 -   **Data Frames:** The `data.frame()` function is employed to establish data frames for tabular data.
 
@@ -162,9 +160,9 @@ In R, every function adheres to a consistent and generic structure, typically de
 function_name(arg1 = val, arg2 = val, arg3 = val, ..., argN = val)
 ```
 
-- **function_name:** This is the name of the R function, and it signifies the specific operation that the function performs.
+-   **function_name:** This is the name of the R function, and it signifies the specific operation that the function performs.
 
-- **arg1, arg2, arg3, ..., argN:** These represent the function's arguments, encapsulated within parentheses. Arguments are placeholders for the values or parameters that you provide to the function. The number and type of arguments may vary depending on the specific function.
+-   **arg1, arg2, arg3, ..., argN:** These represent the function's arguments, encapsulated within parentheses. Arguments are placeholders for the values or parameters that you provide to the function. The number and type of arguments may vary depending on the specific function.
 
 In this context, "val" is a placeholder for the actual values or parameters you would provide when calling the function. The "val" should be replaced with specific values relevant to the function's operation.
 
@@ -175,19 +173,17 @@ Example:
 result <- mean(x = c(1, 2, 3, NA), na.rm = T)
 ```
 
-
 ## Dealing with "NA" Values in R
 
 In R, "NA" represents missing or undefined data. It stands for "Not Available" and is used to indicate missing values. You may encounter different types of "NA" values, each tailored to specific data types. To handle missing data:
 
-- Detect NAs with `is.na()` or `complete.cases()`.
+-   Detect NAs with `is.na()` or `complete.cases()`.
 
-- Remove NAs using functions like `na.omit()`.
+-   Remove NAs using functions like `na.omit()`.
 
-- Replace NAs with specific values when needed.
+-   Replace NAs with specific values when needed.
 
-- Ignore NAs in calculations using the `na.rm` parameter.
-
+-   Ignore NAs in calculations using the `na.rm` parameter.
 
 Example:
 
@@ -213,7 +209,6 @@ cat("Indices of NAs: ", na_indices, "\n")
 cat("Cleaned Data Vector: ", clean_vector, "\n")
 cat("Mean Value (Ignoring NAs): ", mean_value, "\n")
 ```
-
 
 ## Libraries
 
@@ -246,8 +241,6 @@ Loading the "tidyverse" library makes its functions and data manipulation tools 
 Now you can take advantage of the powerful data analysis and visualization tools provided by the "tidyverse" package in your RStudio environment.
 
 Libraries like "tidyverse" are essential for extending R's functionality and making it a powerful platform for data analysis and statistical computing.
-
-
 
 ## Data Import in R
 
@@ -331,5 +324,3 @@ state_milk_production <- read_csv(data_url, show_col_types = FALSE)
 # View the first few rows of the imported data
 head(state_milk_production)
 ```
-
-
