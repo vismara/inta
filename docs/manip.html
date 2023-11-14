@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
-
+<meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Edgar Vismara and Frederico Vieira">
-
 <title>Analysis of the behavior of dairy cattle using R - 4&nbsp; Data manipulation</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -76,8 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -93,36 +88,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="./manip.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data manipulation</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analysis of the behavior of dairy cattle using R</a> 
         <div class="sidebar-tools-main">
@@ -141,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
@@ -155,8 +142,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
@@ -187,55 +174,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Statistical Modeling of Dairy Cattle Behavior</span></span>
-  </li>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Statistical Modeling of Dairy Cattle Behavior</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#basic-data-manipulation-with-dplyr" id="toc-basic-data-manipulation-with-dplyr" class="nav-link active" data-scroll-target="#basic-data-manipulation-with-dplyr"><span class="header-section-number">4.1</span> Basic Data Manipulation with dplyr</a>
+<li>
+<a href="#basic-data-manipulation-with-dplyr" id="toc-basic-data-manipulation-with-dplyr" class="nav-link active" data-scroll-target="#basic-data-manipulation-with-dplyr"><span class="header-section-number">4.1</span> Basic Data Manipulation with dplyr</a>
   <ul class="collapse">
-  <li><a href="#mutate---adding-or-modifying-variables" id="toc-mutate---adding-or-modifying-variables" class="nav-link" data-scroll-target="#mutate---adding-or-modifying-variables"><code>mutate()</code> - Adding or Modifying Variables</a></li>
+<li><a href="#mutate---adding-or-modifying-variables" id="toc-mutate---adding-or-modifying-variables" class="nav-link" data-scroll-target="#mutate---adding-or-modifying-variables"><code>mutate()</code> - Adding or Modifying Variables</a></li>
   <li><a href="#summarize---calculating-summary-statistics" id="toc-summarize---calculating-summary-statistics" class="nav-link" data-scroll-target="#summarize---calculating-summary-statistics"><code>summarize()</code> - Calculating Summary Statistics</a></li>
   <li><a href="#group_by---grouping-data" id="toc-group_by---grouping-data" class="nav-link" data-scroll-target="#group_by---grouping-data"><code>group_by()</code> - Grouping Data</a></li>
   <li><a href="#filter---filtering-rows" id="toc-filter---filtering-rows" class="nav-link" data-scroll-target="#filter---filtering-rows"><code>filter()</code> - Filtering Rows</a></li>
   <li><a href="#select---selecting-columns" id="toc-select---selecting-columns" class="nav-link" data-scroll-target="#select---selecting-columns"><code>select()</code> - Selecting Columns</a></li>
   <li><a href="#arrange---sorting-data" id="toc-arrange---sorting-data" class="nav-link" data-scroll-target="#arrange---sorting-data"><span class="header-section-number">4.1.1</span> <code>arrange()</code> - Sorting Data</a></li>
-  </ul></li>
-  <li><a href="#extended-data-manipulation-with-dplyr" id="toc-extended-data-manipulation-with-dplyr" class="nav-link" data-scroll-target="#extended-data-manipulation-with-dplyr"><span class="header-section-number">4.2</span> Extended Data Manipulation with dplyr</a>
+  </ul>
+</li>
+  <li>
+<a href="#extended-data-manipulation-with-dplyr" id="toc-extended-data-manipulation-with-dplyr" class="nav-link" data-scroll-target="#extended-data-manipulation-with-dplyr"><span class="header-section-number">4.2</span> Extended Data Manipulation with dplyr</a>
   <ul class="collapse">
-  <li><a href="#join---combining-datasets" id="toc-join---combining-datasets" class="nav-link" data-scroll-target="#join---combining-datasets"><code>join()</code> - Combining datasets</a></li>
+<li><a href="#join---combining-datasets" id="toc-join---combining-datasets" class="nav-link" data-scroll-target="#join---combining-datasets"><code>join()</code> - Combining datasets</a></li>
   <li><a href="#advanced-filtering-with-between" id="toc-advanced-filtering-with-between" class="nav-link" data-scroll-target="#advanced-filtering-with-between">Advanced Filtering with <code>between()</code></a></li>
   <li><a href="#case_when---conditional-transformations-filtered_data" id="toc-case_when---conditional-transformations-filtered_data" class="nav-link" data-scroll-target="#case_when---conditional-transformations-filtered_data"><code>case_when()</code> - Conditional transformations filtered_data</a></li>
   <li><a href="#mutate_at---applying-functions-to-multiple-columns." id="toc-mutate_at---applying-functions-to-multiple-columns." class="nav-link" data-scroll-target="#mutate_at---applying-functions-to-multiple-columns."><code>mutate_at()</code> - Applying functions to multiple columns.</a></li>
   <li><a href="#group_by-with-multiple-variables---multi-level-grouping" id="toc-group_by-with-multiple-variables---multi-level-grouping" class="nav-link" data-scroll-target="#group_by-with-multiple-variables---multi-level-grouping"><code>group_by()</code> with multiple variables - Multi-level grouping</a></li>
-  </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.3</span> Exercises</a>
+  </ul>
+</li>
+  <li>
+<a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.3</span> Exercises</a>
   <ul class="collapse">
-  <li><a href="#exercise-1-filtering-and-selecting" id="toc-exercise-1-filtering-and-selecting" class="nav-link" data-scroll-target="#exercise-1-filtering-and-selecting">Exercise 1: Filtering and Selecting</a></li>
+<li><a href="#exercise-1-filtering-and-selecting" id="toc-exercise-1-filtering-and-selecting" class="nav-link" data-scroll-target="#exercise-1-filtering-and-selecting">Exercise 1: Filtering and Selecting</a></li>
   <li><a href="#exercise-2-grouping-and-summarizing" id="toc-exercise-2-grouping-and-summarizing" class="nav-link" data-scroll-target="#exercise-2-grouping-and-summarizing">Exercise 2: Grouping and Summarizing</a></li>
   <li><a href="#exercise-3-calculating-new-variables" id="toc-exercise-3-calculating-new-variables" class="nav-link" data-scroll-target="#exercise-3-calculating-new-variables">Exercise 3: Calculating New Variables</a></li>
   <li><a href="#exercise-4-filter-and-sorting-data" id="toc-exercise-4-filter-and-sorting-data" class="nav-link" data-scroll-target="#exercise-4-filter-and-sorting-data">Exercise 4: Filter and sorting Data</a></li>
   <li><a href="#exercise-5-preparing-data-for-ggplot2-visualization" id="toc-exercise-5-preparing-data-for-ggplot2-visualization" class="nav-link" data-scroll-target="#exercise-5-preparing-data-for-ggplot2-visualization">Exercise 5: Preparing Data for <code>ggplot2</code> Visualization</a></li>
-  </ul></li>
   </ul>
-</nav>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data manipulation</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data manipulation</span>
+</h1>
 </div>
 
 
@@ -248,18 +250,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header>
-
-<p>In this section, we will explore data manipulation techniques using the tidyverse package in R. We will work with a dataset previously imported from the web, specifically the <code>state_milk_production.csv</code>. The dataset describes milk production across different states in the United States along the last 53 years.</p>
+</header><p>In this section, we will explore data manipulation techniques using the tidyverse package in R. We will work with a dataset previously imported from the web, specifically the <code>state_milk_production.csv</code>. The dataset describes milk production across different states in the United States along the last 53 years.</p>
 <p>You can access the original data <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-01-29">here</a>. The dataset contains the following variables:</p>
 <table class="table">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Variable</th>
 <th>Class</th>
 <th>Description</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>region</td>
@@ -284,19 +282,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <hr>
-<section id="basic-data-manipulation-with-dplyr" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="basic-data-manipulation-with-dplyr"><span class="header-section-number">4.1</span> Basic Data Manipulation with dplyr</h2>
-<p>We’ll cover the fundamental data manipulation functions provided by the <code>dplyr</code> package in R such as: <code>mutate()</code> for adding or modifying variables, <code>summarize()</code> for calculating summary statistics ,<code>group_by()</code> and <code>ungroup()</code> for grouping and ungrouping data,<code>filter()</code> fro filtering rows, <code>select()</code> for selecting columns and <code>arrange()</code> for sorting data.</p>
+<section id="basic-data-manipulation-with-dplyr" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="basic-data-manipulation-with-dplyr">
+<span class="header-section-number">4.1</span> Basic Data Manipulation with dplyr</h2>
+<p>We’ll cover the fundamental data manipulation functions provided by the <code>dplyr</code> package in R such as: <code>mutate()</code> for adding or modifying variables, <code>summarize()</code> for calculating summary statistics ,<code>group_by()</code> and <code>ungroup()</code> for grouping and ungrouping data,<code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> fro filtering rows, <code>select()</code> for selecting columns and <code>arrange()</code> for sorting data.</p>
 <hr>
-<section id="mutate---adding-or-modifying-variables" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="mutate---adding-or-modifying-variables"><code>mutate()</code> - Adding or Modifying Variables</h3>
+<section id="mutate---adding-or-modifying-variables" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="mutate---adding-or-modifying-variables">
+<code>mutate()</code> - Adding or Modifying Variables</h3>
 <p>The <code>mutate()</code> function is used to create new variables or modify existing ones.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding a new variable: milk_per_cow_kg</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mutated_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">milk_produced_kg =</span> milk_produced <span class="sc">*</span> <span class="fl">0.453592</span>)  <span class="co"># Convert pounds to kilograms</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mutated_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Adding a new variable: milk_per_cow_kg</span></span>
+<span><span class="va">mutated_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>milk_produced_kg <span class="op">=</span> <span class="va">milk_produced</span> <span class="op">*</span> <span class="fl">0.453592</span><span class="op">)</span>  <span class="co"># Convert pounds to kilograms</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mutated_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,400 × 5
    region    state          year milk_produced milk_produced_kg
@@ -314,17 +312,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2,390 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="summarize---calculating-summary-statistics" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="summarize---calculating-summary-statistics"><code>summarize()</code> - Calculating Summary Statistics</h3>
+<hr></section><section id="summarize---calculating-summary-statistics" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="summarize---calculating-summary-statistics">
+<code>summarize()</code> - Calculating Summary Statistics</h3>
 <p>The <code>summarize()</code> function calculates summary statistics for a specific group.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total milk produced for each state</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>summary_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_milk_produced =</span> <span class="fu">sum</span>(milk_produced))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calculate the total milk produced for each state</span></span>
+<span><span class="va">summary_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">state</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>total_milk_produced <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">milk_produced</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">summary_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
    state       total_milk_produced
@@ -342,18 +338,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="group_by---grouping-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="group_by---grouping-data"><code>group_by()</code> - Grouping Data</h3>
+<hr></section><section id="group_by---grouping-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="group_by---grouping-data">
+<code>group_by()</code> - Grouping Data</h3>
 <p>The <code>group_by()</code> function is used to group data by a specific variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group data by year and calculate the average milk produced</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_milk_produced =</span> <span class="fu">mean</span>(milk_produced))</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grouped_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Group data by year and calculate the average milk produced</span></span>
+<span><span class="va">grouped_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>avg_milk_produced <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">milk_produced</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">grouped_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 48 × 2
     year avg_milk_produced
@@ -371,33 +365,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 38 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="filter---filtering-rows" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="filter---filtering-rows"><code>filter()</code> - Filtering Rows</h3>
-<p>The <code>filter()</code> function is used to filter rows based on a condition.</p>
+<hr></section><section id="filter---filtering-rows" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="filter---filtering-rows">
+<code>filter()</code> - Filtering Rows</h3>
+<p>The <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> function is used to filter rows based on a condition.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data for the year 2022</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(filtered_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Filter data for the year 2022</span></span>
+<span><span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2022</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">filtered_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 4
 # ℹ 4 variables: region &lt;chr&gt;, state &lt;chr&gt;, year &lt;dbl&gt;, milk_produced &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="select---selecting-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="select---selecting-columns"><code>select()</code> - Selecting Columns</h3>
+<hr></section><section id="select---selecting-columns" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="select---selecting-columns">
+<code>select()</code> - Selecting Columns</h3>
 <p>The <code>select()</code> function is used to select specific columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only the "state" and "milk_produced" columns</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>selected_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, milk_produced)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(selected_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Select only the "state" and "milk_produced" columns</span></span>
+<span><span class="va">selected_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">state</span>, <span class="va">milk_produced</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">selected_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,400 × 2
    state         milk_produced
@@ -415,17 +405,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2,390 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="arrange---sorting-data" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="arrange---sorting-data"><span class="header-section-number">4.1.1</span> <code>arrange()</code> - Sorting Data</h3>
+<hr></section><section id="arrange---sorting-data" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="arrange---sorting-data">
+<span class="header-section-number">4.1.1</span> <code>arrange()</code> - Sorting Data</h3>
 <p>The <code>arrange()</code> function is used to sort data by one or more variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange data by year in descending order</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sorted_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(year))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sorted_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Arrange data by year in descending order</span></span>
+<span><span class="va">sorted_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">sorted_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,400 × 4
    region    state          year milk_produced
@@ -443,11 +431,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 2,390 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-</section>
-<section id="extended-data-manipulation-with-dplyr" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="extended-data-manipulation-with-dplyr"><span class="header-section-number">4.2</span> Extended Data Manipulation with dplyr</h2>
+<hr></section></section><section id="extended-data-manipulation-with-dplyr" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="extended-data-manipulation-with-dplyr">
+<span class="header-section-number">4.2</span> Extended Data Manipulation with dplyr</h2>
 <p>In order to demonstrate advanced data manipulation with the <code>dplyr</code> package, we’ll begin by importing another dataset from the United States Department of Agriculture (USDA), known as the ‘milkcow_facts.csv’ dataset.</p>
 <p>You can access the original data <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-01-29">here</a>. The dataset contains the following variables:</p>
 <table class="table">
@@ -456,13 +441,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <col style="width: 20%">
 <col style="width: 51%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Variable</th>
 <th>Class</th>
 <th>Description</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>year</td>
@@ -523,21 +506,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The subsequent code imports data using the method previously introduced in the preceding chapter:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the URL of the dataset</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milkcow_facts.csv"</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from the internet</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>milk_cow_facts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Define the URL of the dataset</span></span>
+<span><span class="va">data_url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milkcow_facts.csv"</span></span>
+<span></span>
+<span><span class="co"># Import data from the internet</span></span>
+<span><span class="va">milk_cow_facts</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="va">data_url</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="join---combining-datasets" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="join---combining-datasets"><code>join()</code> - Combining datasets</h3>
+<section id="join---combining-datasets" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="join---combining-datasets">
+<code>join()</code> - Combining datasets</h3>
 <p>The <code>join()</code> function is used to combine multiple datasets based on common keys, allowing you to create more complex datasets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Joining two datasets based on a common variable (e.g., year)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> milk_cow_facts <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(grouped_data, <span class="at">by =</span> <span class="st">"year"</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combined_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Joining two datasets based on a common variable (e.g., year)</span></span>
+<span><span class="va">combined_data</span> <span class="op">&lt;-</span> <span class="va">milk_cow_facts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">left_join</span><span class="op">(</span><span class="va">grouped_data</span>, by <span class="op">=</span> <span class="st">"year"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">combined_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 35 × 12
     year avg_milk_cow_number milk_per_cow milk_production_lbs avg_price_milk
@@ -558,17 +541,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   alfalfa_hay_price &lt;dbl&gt;, slaughter_cow_price &lt;dbl&gt;, avg_milk_produced &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="advanced-filtering-with-between" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="advanced-filtering-with-between">Advanced Filtering with <code>between()</code></h3>
+<hr></section><section id="advanced-filtering-with-between" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="advanced-filtering-with-between">Advanced Filtering with <code>between()</code>
+</h3>
 <p>In data analysis, advanced filtering often requires the ability to select rows based on specific numeric ranges. The <code>between()</code> function in R is a powerful tool that enables advanced filtering by allowing you to extract rows where a variable falls within a defined range. Let’s explore how to use this function for more complex filtering tasks. For instance, suppose you want to perform advanced filtering to select rows with years falling within the range of 2015 to 2020:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Advanced filtering: Select data for a specific range of years</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(year, <span class="dv">2015</span>, <span class="dv">2020</span>))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(filtered_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Advanced filtering: Select data for a specific range of years</span></span>
+<span><span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">between</span><span class="op">(</span><span class="va">year</span>, <span class="fl">2015</span>, <span class="fl">2020</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">filtered_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 150 × 4
    region    state          year milk_produced
@@ -586,21 +567,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 140 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="case_when---conditional-transformations-filtered_data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="case_when---conditional-transformations-filtered_data"><code>case_when()</code> - Conditional transformations filtered_data</h3>
+<hr></section><section id="case_when---conditional-transformations-filtered_data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="case_when---conditional-transformations-filtered_data">
+<code>case_when()</code> - Conditional transformations filtered_data</h3>
 <p>The <code>case_when()</code> function is used to perform conditional transformations, allowing you to create new variables based on multiple conditions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new variable "milk_prod" based on conditions</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>transformed_data <span class="ot">&lt;-</span> milk_cow_facts <span class="sc">|&gt;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">milk_prod =</span> <span class="fu">case_when</span>(</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    milk_per_cow <span class="sc">&gt;</span> <span class="dv">19000</span> <span class="sc">~</span> <span class="st">"High"</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    milk_per_cow <span class="sc">&gt;</span> <span class="dv">14000</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Low"</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(transformed_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a new variable "milk_prod" based on conditions</span></span>
+<span><span class="va">transformed_data</span> <span class="op">&lt;-</span> <span class="va">milk_cow_facts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>milk_prod <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="va">milk_per_cow</span> <span class="op">&gt;</span> <span class="fl">19000</span> <span class="op">~</span> <span class="st">"High"</span>,</span>
+<span>    <span class="va">milk_per_cow</span> <span class="op">&gt;</span> <span class="fl">14000</span> <span class="op">~</span> <span class="st">"Medium"</span>,</span>
+<span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"Low"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">transformed_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 35 × 12
     year avg_milk_cow_number milk_per_cow milk_production_lbs avg_price_milk
@@ -621,17 +600,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   alfalfa_hay_price &lt;dbl&gt;, slaughter_cow_price &lt;dbl&gt;, milk_prod &lt;chr&gt;</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="mutate_at---applying-functions-to-multiple-columns." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="mutate_at---applying-functions-to-multiple-columns."><code>mutate_at()</code> - Applying functions to multiple columns.</h3>
+<hr></section><section id="mutate_at---applying-functions-to-multiple-columns." class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="mutate_at---applying-functions-to-multiple-columns.">
+<code>mutate_at()</code> - Applying functions to multiple columns.</h3>
 <p>The <code>mutate_at()</code> function allows you to apply a function to multiple columns simultaneously.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the transformation to selected columns</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>transformed_data <span class="ot">&lt;-</span> milk_cow_facts <span class="sc">|&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(milk_production_lbs, milk_per_cow), <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="fl">0.453592</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(transformed_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Apply the transformation to selected columns</span></span>
+<span><span class="va">transformed_data</span> <span class="op">&lt;-</span> <span class="va">milk_cow_facts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">milk_production_lbs</span>, <span class="va">milk_per_cow</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">0.453592</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">transformed_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 35 × 11
     year avg_milk_cow_number milk_per_cow milk_production_lbs avg_price_milk
@@ -652,18 +629,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   alfalfa_hay_price &lt;dbl&gt;, slaughter_cow_price &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="group_by-with-multiple-variables---multi-level-grouping" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="group_by-with-multiple-variables---multi-level-grouping"><code>group_by()</code> with multiple variables - Multi-level grouping</h3>
+<hr></section><section id="group_by-with-multiple-variables---multi-level-grouping" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="group_by-with-multiple-variables---multi-level-grouping">
+<code>group_by()</code> with multiple variables - Multi-level grouping</h3>
 <p>You can use <code>group_by()</code> with multiple variables to create multi-level grouping for more complex summaries.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group data by region and year and calculate summary statistics</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>multi_level_grouped_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region, year) <span class="sc">|&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_milk_produced =</span> <span class="fu">sum</span>(milk_produced))</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(multi_level_grouped_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Group data by region and year and calculate summary statistics</span></span>
+<span><span class="va">multi_level_grouped_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">region</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>total_milk_produced <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">milk_produced</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">multi_level_grouped_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 480 × 3
 # Groups:   region [10]
@@ -682,21 +657,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 470 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-</section>
-<section id="exercises" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.3</span> Exercises</h2>
-<section id="exercise-1-filtering-and-selecting" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-1-filtering-and-selecting">Exercise 1: Filtering and Selecting</h3>
+<hr></section></section><section id="exercises" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="exercises">
+<span class="header-section-number">4.3</span> Exercises</h2>
+<section id="exercise-1-filtering-and-selecting" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="exercise-1-filtering-and-selecting">Exercise 1: Filtering and Selecting</h3>
 <p>Filter the <code>milk_cow_facts</code> dataset to retain only rows for the year 2015. Then, select and display the total milk production in pounds (<code>milk_produced</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 1: Filtering and Selecting</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, milk_produced)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>filtered_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Exercise 1: Filtering and Selecting</span></span>
+<span><span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2015</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">state</span>, <span class="va">milk_produced</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">filtered_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 50 × 2
    state         milk_produced
@@ -714,18 +685,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 40 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="exercise-2-grouping-and-summarizing" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-2-grouping-and-summarizing">Exercise 2: Grouping and Summarizing</h3>
+<hr></section><section id="exercise-2-grouping-and-summarizing" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="exercise-2-grouping-and-summarizing">Exercise 2: Grouping and Summarizing</h3>
 <p>Group the <code>milkcow_facts</code> dataset by the <code>year</code> variable. Calculate the average milk production per cow (<code>milk_per_cow</code>) for each year.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 2: Grouping and Summarizing</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>summary_data <span class="ot">&lt;-</span> milk_cow_facts <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_milk_per_cow =</span> <span class="fu">mean</span>(milk_per_cow, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>summary_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Exercise 2: Grouping and Summarizing</span></span>
+<span><span class="va">summary_data</span> <span class="op">&lt;-</span> <span class="va">milk_cow_facts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarize</span><span class="op">(</span>avg_milk_per_cow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">milk_per_cow</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">summary_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 35 × 2
     year avg_milk_per_cow
@@ -743,18 +711,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 25 more rows</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="exercise-3-calculating-new-variables" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-3-calculating-new-variables">Exercise 3: Calculating New Variables</h3>
+<hr></section><section id="exercise-3-calculating-new-variables" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="exercise-3-calculating-new-variables">Exercise 3: Calculating New Variables</h3>
 <p>In the <code>milk_cow_facts</code> dataset, calculate the ratio of the average price of milk per dairy cow ration (<code>milk_feed_price_ratio</code>) by dividing the average price paid for milk (<code>avg_price_milk</code>) by the average price paid for dairy cow rations (<code>dairy_ration</code>) in 2013.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 3: Calculating New Variables and filtering</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>milkcow_facts_2013 <span class="ot">&lt;-</span> milk_cow_facts <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">milk_feed_price_ratio =</span> avg_price_milk <span class="sc">/</span> dairy_ration)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>milkcow_facts_2013</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Exercise 3: Calculating New Variables and filtering</span></span>
+<span><span class="va">milkcow_facts_2013</span> <span class="op">&lt;-</span> <span class="va">milk_cow_facts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2013</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>milk_feed_price_ratio <span class="op">=</span> <span class="va">avg_price_milk</span> <span class="op">/</span> <span class="va">dairy_ration</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">milkcow_facts_2013</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 11
    year avg_milk_cow_number milk_per_cow milk_production_lbs avg_price_milk
@@ -765,19 +730,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   alfalfa_hay_price &lt;dbl&gt;, slaughter_cow_price &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="exercise-4-filter-and-sorting-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-4-filter-and-sorting-data">Exercise 4: Filter and sorting Data</h3>
+<hr></section><section id="exercise-4-filter-and-sorting-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="exercise-4-filter-and-sorting-data">Exercise 4: Filter and sorting Data</h3>
 <p>Sort the <code>state_milk_production</code> dataset in descending order based on the <code>milk_produced</code> variable in 2014. Display the top 10 states with the highest production of milk in this year.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 4: Sorting Data</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>sorted_data <span class="ot">&lt;-</span> state_milk_production <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2014</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(milk_produced)) <span class="sc">%&gt;%</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>sorted_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Exercise 4: Sorting Data</span></span>
+<span><span class="va">sorted_data</span> <span class="op">&lt;-</span> <span class="va">state_milk_production</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2014</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">milk_produced</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sorted_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
    region          state         year milk_produced
@@ -794,26 +756,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 10 Pacific         Washington    2014    6576000000</code></pre>
 </div>
 </div>
-<hr>
-</section>
-<section id="exercise-5-preparing-data-for-ggplot2-visualization" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-5-preparing-data-for-ggplot2-visualization">Exercise 5: Preparing Data for <code>ggplot2</code> Visualization</h3>
+<hr></section><section id="exercise-5-preparing-data-for-ggplot2-visualization" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="exercise-5-preparing-data-for-ggplot2-visualization">Exercise 5: Preparing Data for <code>ggplot2</code> Visualization</h3>
 <p>For our upcoming exercise, we will be working with another two datasets: <code>milk_products_facts</code> and <code>clean_cheese</code>. These datasets offer valuable insights into consumption patterns of various dairy and cheese products in the United States over the years.</p>
 <p>To import the <code>milk_products_facts</code> dataset, use the following code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the URL of the dataset for milk products</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>milk_products_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milk_products_facts.csv"</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from the internet</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>milk_products_facts <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(milk_products_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Define the URL of the dataset for milk products</span></span>
+<span><span class="va">milk_products_url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milk_products_facts.csv"</span></span>
+<span></span>
+<span><span class="co"># Import data from the internet</span></span>
+<span><span class="va">milk_products_facts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">milk_products_url</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To import the <code>clean_cheese</code> dataset, use the following code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the URL of the dataset for clean cheese products</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>clean_cheese_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/clean_cheese.csv"</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from the internet</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>clean_cheese <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(clean_cheese_url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Define the URL of the dataset for clean cheese products</span></span>
+<span><span class="va">clean_cheese_url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/clean_cheese.csv"</span></span>
+<span></span>
+<span><span class="co"># Import data from the internet</span></span>
+<span><span class="va">clean_cheese</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">clean_cheese_url</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s a complete overview of the variables within each dataset:</p>
 <p><strong>milk_products_facts:</strong></p>
@@ -823,13 +782,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <col style="width: 9%">
 <col style="width: 54%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Variable</th>
 <th>Class</th>
 <th>Description</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>year</td>
@@ -930,13 +887,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <col style="width: 9%">
 <col style="width: 54%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th>Variable</th>
 <th>Class</th>
 <th>Description</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>Year</td>
@@ -1037,40 +992,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p><strong>Answer:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform data manipulation</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>milk_products_facts <span class="ot">&lt;-</span> milk_products_facts <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, cheese_american) </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>clean_cheese <span class="ot">&lt;-</span> clean_cheese <span class="sc">%&gt;%</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Year, Mozzarella) </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the datasets on the "year" variable</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(milk_products_facts, clean_cheese, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"year"</span> <span class="ot">=</span> <span class="st">"Year"</span>))</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the ratio of American cheese consumption to mozzarella consumption</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ratio =</span> cheese_american <span class="sc">/</span> Mozzarella)</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a line plot</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_data, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> ratio)) <span class="sc">+</span></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Ratio (American Cheese / Mozzarella)"</span>,</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Ratio of American Cheese to Mozzarella Consumption Over the Years"</span></span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Perform data manipulation</span></span>
+<span><span class="va">milk_products_facts</span> <span class="op">&lt;-</span> <span class="va">milk_products_facts</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">year</span>, <span class="va">cheese_american</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">clean_cheese</span> <span class="op">&lt;-</span> <span class="va">clean_cheese</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Year</span>, <span class="va">Mozzarella</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Merge the datasets on the "year" variable</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">milk_products_facts</span>, <span class="va">clean_cheese</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"year"</span> <span class="op">=</span> <span class="st">"Year"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Calculate the ratio of American cheese consumption to mozzarella consumption</span></span>
+<span><span class="va">merged_data</span> <span class="op">&lt;-</span> <span class="va">merged_data</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>ratio <span class="op">=</span> <span class="va">cheese_american</span> <span class="op">/</span> <span class="va">Mozzarella</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a line plot</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">merged_data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">ratio</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Ratio (American Cheese / Mozzarella)"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Ratio of American Cheese to Mozzarella Consumption Over the Years"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="manip_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
 
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1302,9 +1253,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./basics.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basics</span></span>
       </a>          
@@ -1316,8 +1265,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">This tutorial was written by Edgar Vismara and Frederico Vieira.</div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1325,7 +1273,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">This material was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
-
 
 
 </body></html>

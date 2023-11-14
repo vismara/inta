@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.433">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Edgar Vismara and Frederico Vieira">
-<title>Analysis of the behavior of dairy cattle using R - 6&nbsp; Exponential family of distributions</title>
+<title>Analysis of the behavior of dairy cattle using R - 8&nbsp; GLM models framework</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,26 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -46,7 +61,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./visual.html" rel="prev">
+<link href="./glm_intro.html" rel="prev">
 <link href="./cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -84,7 +99,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dist.html">Statistical Modeling of Dairy Cattle Behavior</a></li><li class="breadcrumb-item"><a href="./dist.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear.html">Statistical Modeling of Dairy Cattle Behavior</a></li><li class="breadcrumb-item"><a href="./dist.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GLM models framework</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -136,7 +151,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installing R nad Rstudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -170,8 +185,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic linear model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Beyond the Gaussian linear models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./dist.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GLM models framework</span></span></a>
   </div>
 </li>
       </ul>
@@ -184,18 +211,31 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#gaussian-normal-distribution" id="toc-gaussian-normal-distribution" class="nav-link active" data-scroll-target="#gaussian-normal-distribution"><span class="header-section-number">6.1</span> Gaussian (Normal) Distribution</a></li>
-  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution"><span class="header-section-number">6.2</span> Poisson Distribution</a></li>
-  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution"><span class="header-section-number">6.3</span> Binomial Distribution</a></li>
-  <li><a href="#beta-distribution" id="toc-beta-distribution" class="nav-link" data-scroll-target="#beta-distribution"><span class="header-section-number">6.4</span> Beta Distribution</a></li>
-  <li><a href="#gamma-distribution" id="toc-gamma-distribution" class="nav-link" data-scroll-target="#gamma-distribution"><span class="header-section-number">6.5</span> Gamma Distribution</a></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+<li>
+<a href="#some-useful-distributions" id="toc-some-useful-distributions" class="nav-link active" data-scroll-target="#some-useful-distributions"><span class="header-section-number">8.1</span> Some useful distributions</a>
+  <ul class="collapse">
+<li><a href="#exponential-distribution" id="toc-exponential-distribution" class="nav-link" data-scroll-target="#exponential-distribution">Exponential Distribution</a></li>
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial Distribution</a></li>
+  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution">Poisson Distribution</a></li>
+  <li><a href="#gaussian-distribution" id="toc-gaussian-distribution" class="nav-link" data-scroll-target="#gaussian-distribution">Gaussian Distribution</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#the-glm-framework-in-r" id="toc-the-glm-framework-in-r" class="nav-link" data-scroll-target="#the-glm-framework-in-r"><span class="header-section-number">8.2</span> The GLM framework in R</a>
+  <ul class="collapse">
+<li><a href="#binomial-models" id="toc-binomial-models" class="nav-link" data-scroll-target="#binomial-models">Binomial models</a></li>
+  <li><a href="#poisson-models" id="toc-poisson-models" class="nav-link" data-scroll-target="#poisson-models">Poisson models</a></li>
+  <li><a href="#ordinal-models" id="toc-ordinal-models" class="nav-link" data-scroll-target="#ordinal-models">Ordinal models</a></li>
+  <li><a href="#gaussian-models" id="toc-gaussian-models" class="nav-link" data-scroll-target="#gaussian-models">Gaussian models</a></li>
+  <li><a href="#general-framework" id="toc-general-framework" class="nav-link" data-scroll-target="#general-framework">General framework</a></li>
+  </ul>
+</li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span>
+<span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GLM models framework</span>
 </h1>
 </div>
 
@@ -209,41 +249,188 @@ div.csl-indent {
   </div>
   
 
-</header><p>The exponential family is a broad class of probability distributions that includes well-known distributions such as the Gaussian (Normal), Poisson, Binomial, Beta, and Gamma distributions. These distributions can be expressed in the form of the exponential family, sharing a common structure.</p>
-<section id="gaussian-normal-distribution" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="gaussian-normal-distribution">
-<span class="header-section-number">6.1</span> Gaussian (Normal) Distribution</h2>
-<p>The Gaussian distribution is characterized by a bell-shaped curve and is widely used in various fields of science and statistics <span class="citation" data-cites="GaussianCitation">(<a href="#ref-GaussianCitation" role="doc-biblioref">Galton 1875</a>)</span>. Its probability density function (PDF) is defined as:</p>
-<p><span class="math display">\[\begin{equation}
-f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
-\end{equation}\]</span></p>
-</section><section id="poisson-distribution" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="poisson-distribution">
-<span class="header-section-number">6.2</span> Poisson Distribution</h2>
-<p>The Poisson distribution models events occurring in fixed intervals of time or space. It is another example of an exponential family distribution when expressed in the right form.</p>
-</section><section id="binomial-distribution" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="binomial-distribution">
-<span class="header-section-number">6.3</span> Binomial Distribution</h2>
-<p>The binomial distribution describes the number of successes in a fixed number of Bernoulli trials. When appropriately parameterized, it is also a member of the exponential family.</p>
-</section><section id="beta-distribution" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="beta-distribution">
-<span class="header-section-number">6.4</span> Beta Distribution</h2>
-<p>The beta distribution is used for modeling probabilities or proportions. It, too, can be derived from the exponential family when the parameters align with the framework.</p>
-</section><section id="gamma-distribution" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="gamma-distribution">
-<span class="header-section-number">6.5</span> Gamma Distribution</h2>
-<p>The gamma distribution is often used to model wait times and can be expressed as a member of the exponential family by selecting the appropriate parameters.</p>
-<p>In the figures below, you can see how these distributions align with the exponential family framework:</p>
+</header><p>In experiments with dairy cows where some enviromental and behavior data is colected, diferent statistical distributions are crucial for capturing nuances in various variables. These distributions are part of the exponential family. They offers a robust framework for modeling and interpreting experimental outcomes.</p>
+<p>Lets see an overviwe of the three main distributions and how its associated with the dairy cows experiment variable.</p>
+<section id="some-useful-distributions" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="some-useful-distributions">
+<span class="header-section-number">8.1</span> Some useful distributions</h2>
+<p>In experiments with dairy cows, statistical distributions, part of the exponential family, are essential for effectively modeling and interpreting various environmental and behavioral variables. Let’s explore an overview of the three main distributions and their relevance to the dairy cow experiment.</p>
+<section id="exponential-distribution" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="exponential-distribution">Exponential Distribution</h3>
+<p>The probability density function (PDF) of the exponential distribution is given by:</p>
+<p><span class="math display">\[f(x | \lambda) = \lambda \cdot e^{-\lambda x} \text{ for } x \geq 0\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is the rate parameter.</p>
+<p><strong>Graphical Representation in R:</strong></p>
 <div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">lambda</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">lambda</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_exp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Exponential Distribution"</span>, x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"Probability Density"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">3</span>, y <span class="op">=</span> <span class="fl">0.3</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">lambda</span> <span class="op">==</span> <span class="fl">0.5</span><span class="op">)</span>, </span>
+<span>           color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Exponential Distribution"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"x"</span>, </span>
+<span>       y <span class="op">=</span> <span class="st">"Probability Density"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="dist_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="dist_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>These graphical representations illustrate how these common distributions fit the structure of the exponential family, allowing for a unified understanding of their relationships and facilitating statistical inference and modeling.</p>
+</section><section id="binomial-distribution" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="binomial-distribution">Binomial Distribution</h3>
+<p>The binomial distribution can be derived from the exponential distribution by considering the waiting time until the first success in a sequence of independent Bernoulli trials.</p>
+<p>The probability function of the binomial distribution is given by:</p>
+<p><span class="math display">\[P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}\]</span></p>
+<p>where <span class="math inline">\(n\)</span> is the number of trials, <span class="math inline">\(p\)</span> is the probability of success, and <span class="math inline">\(k\)</span> is the number of successes.</p>
+<p><strong>Graphical Representation in R:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">0.3</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span><span class="va">x</span>, size <span class="op">=</span> <span class="va">n</span>, prob <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_binom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_binom</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"darkgreen"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Binomial Distribution"</span>, x <span class="op">=</span> <span class="st">"Number of Successes"</span>, y <span class="op">=</span> <span class="st">"Probability"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fl">0.2</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">p</span> <span class="op">==</span> <span class="fl">0.3</span><span class="op">)</span>, </span>
+<span>           color <span class="op">=</span> <span class="st">"darkgreen"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Binomial Distribution"</span>, </span>
+<span>       x <span class="op">=</span> <span class="st">"Number of Successes"</span>, </span>
+<span>       y <span class="op">=</span> <span class="st">"Probability"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="dist_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>General Application:</strong> Modeling binary outcomes and ordinal categorical variables in the context of ordinal logistic regression.</p>
+<p><strong>Ordinal Logistic Regression:</strong></p>
+<p>Ordinal logistic regression is an extension of binomial logistic regression, designed to model ordinal outcomes with a meaningful order. The model introduces separate intercepts for each category, assuming the cumulative logits of each category are proportional.</p>
+<p><strong>Application:</strong> Valuable for analyzing data with ordered categorical responses, such as lameness scores in dairy cows.</p>
+</section><section id="poisson-distribution" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="poisson-distribution">Poisson Distribution</h3>
+<p>The Poisson distribution can be derived from the exponential distribution by considering the number of events in fixed intervals of time or space.</p>
+<p>The probability function of the poison distribution is given by: <span class="math display">\[P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is the average rate of events.</p>
+<p><strong>Graphical Representation in R:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lambda</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">dpois</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">lambda</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_poisson</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"orange"</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Poisson Distribution"</span>, x <span class="op">=</span> <span class="st">"Number of Events"</span>, y <span class="op">=</span> <span class="st">"Probability"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">7</span>, y <span class="op">=</span> <span class="fl">0.15</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">lambda</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span>, </span>
+<span>           color <span class="op">=</span> <span class="st">"orange"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Poisson Distribution"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of Events"</span>, y <span class="op">=</span> <span class="st">"Probability"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="dist_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>General Application:</strong> Suitable for count data, especially in scenarios involving rare events.</p>
+</section><section id="gaussian-distribution" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="gaussian-distribution">Gaussian Distribution</h3>
+<p>The Gaussian distribution can be obtained as a limiting case of the binomial distribution when the number of trials becomes large. The Central Limit Theorem plays a crucial role in this transition.</p>
+<p>The probability function density function of the binomial distribution is given by:</p>
+<p><span class="math display">\[f(x | \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]</span></p>
+<p>where <span class="math inline">\(\mu\)</span> is the mean and <span class="math inline">\(\sigma\)</span> is the standard deviation.</p>
+<p><strong>Graphical Representation in R:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="va">sigma</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_gaussian</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df_gaussian</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Gaussian Distribution"</span>, x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"Probability Density"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">0.35</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">mu</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="va">and</span> <span class="op">~</span> <span class="va">sigma</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>, </span>
+<span>           color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Gaussian Distribution"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"x"</span>, y <span class="op">=</span> <span class="st">"Probability Density"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="dist_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>General Application:</strong> Modeling continuous variables, offering a versatile framework for various measurements in diverse fields.</p>
+</section></section><section id="the-glm-framework-in-r" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="the-glm-framework-in-r">
+<span class="header-section-number">8.2</span> The GLM framework in R</h2>
+<p>As previously discussed, Generalized Linear Models (GLMs) provide a flexible framework for modeling various data types, going beyond traditional linear regression. The three key components of a GLM include the distribution of the response variable, the linear predictor, and the link function connecting the linear predictor to the expected value of the response.</p>
+<p>Now, let’s explore how to define these components in the context of the earlier mentioned distributions, using R.</p>
+<section id="binomial-models" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="binomial-models">Binomial models</h3>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Example: Modeling the probability of success in binary outcomes</span></span>
+<span><span class="va">glm_binomial</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">response_binary</span> <span class="op">~</span> <span class="va">predictor</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we use the <code>binomial</code> family to specify the distribution and the logit link function, which connects the linear predictor to the probability of success in binary outcomes.</p>
+</section><section id="poisson-models" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="poisson-models">Poisson models</h3>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Example: Modeling count data with the Poisson distribution</span></span>
+<span><span class="va">glm_poisson</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">response_count</span> <span class="op">~</span> <span class="va">predictor</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case, the <code>poisson</code> family is chosen for count data, and the log link function is applied.</p>
+</section><section id="ordinal-models" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="ordinal-models">Ordinal models</h3>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Assuming 'categories' is a factor with ordered levels: "Low (1)", "Medium(2)", "High(3)"</span></span>
+<span><span class="va">glm_ordinal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">categories</span> <span class="op">~</span> <span class="va">predictor</span>, family <span class="op">=</span> <span class="fu">cumulative</span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this example, the <code>cumulative</code> family is used for ordinal logistic regression within the <code>glm</code> function. The <code>link</code> argument specifies the logit link function, connecting the linear predictor to the cumulative odds of being in or below each category.</p>
+</section><section id="gaussian-models" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="gaussian-models">Gaussian models</h3>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Example: Modeling continuous variables with Gaussian distribution</span></span>
+<span><span class="va">glm_gaussian</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">response_continuous</span> <span class="op">~</span> <span class="va">predictor</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Continuous variables can be modeled using the <code>gaussian</code> family, and the choice between the identity or log link function allows for the establishment of a linear relationship between the predictor and the expected value of the response. Opting for the identity function results in a model that closely mirrors the one introduced in chapter 6.</p>
+</section><section id="general-framework" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="general-framework">General framework</h3>
+<p>In each example, the <code>glm</code> function is utilized to fit the model, and the <code>family</code> argument specifies the distribution family, while the <code>link</code> argument defines the link function. These GLM components offer flexibility in adapting the model to diverse data types, providing a powerful tool for statistical modeling in R. It’s noteworthy that beyond the linking functions illustrated in prior examples, there are numerous others available.</p>
+<p>The following table summarize the association of each distribution with its corresponding linking function and the most commom type of variables used in dairy cows experiment:</p>
+<table class="table-striped table-hover table">
+<caption>Correspondence between each probability distribution, its associated linking functions, and the most common outcomes measured in dairy cow experiments.</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 56%">
+</colgroup>
+<thead><tr class="header">
+<th>Distribution</th>
+<th>Linking Function</th>
+<th>Variables</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Binomial</td>
+<td>Logit, Probit, cloglog</td>
+<td>Absence and occurrence of behaviors</td>
+</tr>
+<tr class="even">
+<td>Poisson</td>
+<td>Log</td>
+<td>Number of behaviors per time interval, heart rate</td>
+</tr>
+<tr class="odd">
+<td>Ordinal</td>
+<td>Logit</td>
+<td>Lameness score</td>
+</tr>
+<tr class="even">
+<td>Gaussian</td>
+<td>Identity, Log</td>
+<td>Milk production, humidity, temperature, etc.</td>
+</tr>
+</tbody>
+</table>
+<p>The table offers a quick guide for selecting relevant distributions, linking functions, and understanding variables in dairy cow behavior studies. In the next chapter, we will further explore the application of these four models in dairy cow experiments.</p>
+<hr>
 
 
-</section><section id="bibliography" class="level1 unnumbered"><h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-GaussianCitation" class="csl-entry" role="listitem">
-Galton, Sir Francis. 1875. <span>“On the Probability of the Extinction of Families.”</span> <em>Journal of the Anthropological Institute of Great Britain and Ireland</em> 4: 138–44.
-</div>
-</div>
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -476,8 +663,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./visual.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data visualization</span></span>
+      <a href="./glm_intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Beyond the Gaussian linear models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
