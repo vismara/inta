@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Edgar Vismara and Frederico Vieira">
+<title>Analysis of the behavior of dairy cattle using R - 9&nbsp; GLM Analysis: A Practical Application</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./dist.html" rel="prev">
+<link href="./cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear.html">Statistical Modeling of Dairy Cattle Behavior</a></li><li class="breadcrumb-item"><a href="./example.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">GLM Analysis: A Practical Application</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analysis of the behavior of dairy cattle using R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Statistical Modeling of Dairy Cattle Behavior</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic linear model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Beyond the Gaussian linear models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GLM models framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">GLM Analysis: A Practical Application</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">9.1</span> Overview</a>
+  <ul class="collapse">
+<li><a href="#data-overview" id="toc-data-overview" class="nav-link" data-scroll-target="#data-overview"><span class="header-section-number">9.1.1</span> Data Overview</a></li>
+  <li><a href="#github-repository" id="toc-github-repository" class="nav-link" data-scroll-target="#github-repository"><span class="header-section-number">9.1.2</span> GitHub Repository</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">9.2</span> Analysis</a>
+  <ul class="collapse">
+<li><a href="#install-and-load-libraries" id="toc-install-and-load-libraries" class="nav-link" data-scroll-target="#install-and-load-libraries"><span class="header-section-number">9.2.1</span> Install and Load Libraries</a></li>
+  <li><a href="#import-amd-manipulate-datasets" id="toc-import-amd-manipulate-datasets" class="nav-link" data-scroll-target="#import-amd-manipulate-datasets"><span class="header-section-number">9.2.2</span> Import amd manipulate datasets</a></li>
+  <li><a href="#animal-behaviors-analysis" id="toc-animal-behaviors-analysis" class="nav-link" data-scroll-target="#animal-behaviors-analysis"><span class="header-section-number">9.2.3</span> Animal Behaviors Analysis</a></li>
+  <li><a href="#thermoregulatory-variables-analysis" id="toc-thermoregulatory-variables-analysis" class="nav-link" data-scroll-target="#thermoregulatory-variables-analysis"><span class="header-section-number">9.2.4</span> Thermoregulatory Variables Analysis</a></li>
+  <li><a href="#lameness-scores-analysis" id="toc-lameness-scores-analysis" class="nav-link" data-scroll-target="#lameness-scores-analysis"><span class="header-section-number">9.2.5</span> Lameness Scores Analysis</a></li>
+  </ul>
+</li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">References</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">9</span>&nbsp; <span class="chapter-title">GLM Analysis: A Practical Application</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="overview" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">9.1</span> Overview</h2>
+<p>This final section focuses on the practical application of statistical modeling techniques using data from the 2019 study by Pilatti et al.&nbsp;The study investigated diurnal behaviors, thermoregulatory variables, and lameness scores of dairy cows in a compost-bedded pack barn system under hot and humid conditions <span class="citation" data-cites="pilatti2019diurnal">Pilatti et al. (<a href="#ref-pilatti2019diurnal" role="doc-biblioref">2019</a>)</span>.</p>
+<section id="data-overview" class="level3" data-number="9.1.1"><h3 data-number="9.1.1" class="anchored" data-anchor-id="data-overview">
+<span class="header-section-number">9.1.1</span> Data Overview</h3>
+<p>The dataset, including diurnal behaviors, thermoregulatory variables, and lameness scores, is accessible for practical application of generalized linear models (GLM). This enables an analysis of the impact of social groups on these three variables.</p>
+</section><section id="github-repository" class="level3" data-number="9.1.2"><h3 data-number="9.1.2" class="anchored" data-anchor-id="github-repository">
+<span class="header-section-number">9.1.2</span> GitHub Repository</h3>
+<p>Access the dataset on our GitHub repository: <a href="https://github.com/vismara/inta/blob/main/data">GitHub Repository</a>.</p>
+<p>In the following sections, we guide you through applying GLM techniques to analyze the influence of different factors on diurnal behaviors, thermoregulatory variables, and lameness scores.</p>
+</section></section><section id="analysis" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="analysis">
+<span class="header-section-number">9.2</span> Analysis</h2>
+<section id="install-and-load-libraries" class="level3" data-number="9.2.1"><h3 data-number="9.2.1" class="anchored" data-anchor-id="install-and-load-libraries">
+<span class="header-section-number">9.2.1</span> Install and Load Libraries</h3>
+<p>To start the analysis, we need to install and load the necessary R libraries. Execute the following commands to ensure you have the required tools at your disposal:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Install and load necessary libraries</span></span>
+<span><span class="co">#install.packages(c("tidyverse", "readxl", "skimr"))</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/skimr/">skimr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="import-amd-manipulate-datasets" class="level3" data-number="9.2.2"><h3 data-number="9.2.2" class="anchored" data-anchor-id="import-amd-manipulate-datasets">
+<span class="header-section-number">9.2.2</span> Import amd manipulate datasets</h3>
+<p>Now, let’s import the dataset into R for exploration and analysis. The dataset is available on our GitHub repository. Use the following code to import the data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the dataset from Excel</span></span>
+<span><span class="va">excel_path</span> <span class="op">&lt;-</span> <span class="st">"data/Dados_Pillati_2018.xlsx"</span></span>
+<span><span class="va">df_bh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="va">excel_path</span>, sheet <span class="op">=</span> <span class="st">"COMPORTAMENTO"</span><span class="op">)</span></span>
+<span><span class="va">df_term</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="va">excel_path</span>, sheet <span class="op">=</span> <span class="st">"TERMORREG"</span><span class="op">)</span></span>
+<span><span class="va">df_lam</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="va">excel_path</span>, sheet <span class="op">=</span> <span class="st">"BEA"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Transform cathegorical variables to factors</span></span>
+<span></span>
+<span><span class="va">df_bh</span> <span class="op">&lt;-</span> <span class="va">df_bh</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">DIA</span>, <span class="va">TRAT</span>, <span class="va">ANIMAL</span><span class="op">)</span>, <span class="va">as.factor</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">df_term</span> <span class="op">&lt;-</span> <span class="va">df_term</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">DIA</span>, <span class="va">TRAT</span>, <span class="va">ANIMAL</span><span class="op">)</span>, <span class="va">as.factor</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">df_lam</span> <span class="op">&lt;-</span> <span class="va">df_lam</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">DIA</span>, <span class="va">TRAT</span>, <span class="va">ANIMAL</span><span class="op">)</span>, <span class="va">as.factor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_at</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">HIG</span>, <span class="va">CLAUD</span><span class="op">)</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">.</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"3"</span>,<span class="st">"4"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="animal-behaviors-analysis" class="level3" data-number="9.2.3"><h3 data-number="9.2.3" class="anchored" data-anchor-id="animal-behaviors-analysis">
+<span class="header-section-number">9.2.3</span> Animal Behaviors Analysis</h3>
+<section id="dataset-overview" class="level4 unnunmbered" data-number="9.2.3.1"><h4 class="unnunmbered anchored" data-number="9.2.3.1" data-anchor-id="dataset-overview">
+<span class="header-section-number">9.2.3.1</span> Dataset Overview</h4>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Display a summary of the diurnal behaviors dataset</span></span>
+<span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">df_bh</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">df_bh</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">4032</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 36%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">1: 168, 2: 168, 3: 168, 4: 168</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRAT</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1: 2016, 2: 2016</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ANIMAL</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">1: 336, 2: 336, 3: 336, 4: 336</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 8%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HORA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">7.50</td>
+<td style="text-align: right;">4.03</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">▇▇▅▇▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OP</td>
+<td style="text-align: right;">230</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OD</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RP</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RD</td>
+<td style="text-align: right;">227</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">231</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IA</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AN</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OF</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LA</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CO</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AF</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EM</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CA</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">L</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">M</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BC</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em>Brief Description od data:</em> The behaviors dataset provides an overview of the observed behaviors, allowing us to understand the patterns and trends in the daily activities of dairy cows, categorized into two social groups: primiparous and multiparous, within a compost barn setting.</p>
+</section><section id="model-definition" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="model-definition">Model definition</h4>
+<p>We opt for a binomial Generalized Linear Model (GLM) with a logit linking function to model behavior. This choice is suitable because our response variable involves the occurrence or non-occurrence of a certain behavior at a given moment in time, resulting in a dichotomous outcome—either the behavior is present or absent.</p>
+<p>Alternatively, if our focus were on quantifying the number of times a particular behavior occurs within a specified time frame, a Poisson GLM with a log link function would be more appropriate. This model is well-suited for count data, where the response variable represents the number of events (occurrences of behavior in this context) and follows a Poisson distribution.</p>
+<p>As we measure behavior throughout daylight hours for both social groups—primiparous and multiparous cows—our primary interest lies in comparing these groups along the course of the day. The binomial GLM with a logit link will help us assess the probability of behavior occurrence at different times, shedding light on potential variations in behavior patterns between the two social groups during daylight hours. Certainly! Here’s a continuation, starting with the mathematical description of the binomial GLM model:</p>
+<p>Thus, our model is expressed mathematically as follows:</p>
+<p><span class="math display">\[\text{log}\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \text{HORA} + \beta_2 \text{TRAT} + \beta_3 \text{HORA} \times \text{TRAT}\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(p\)</span> is the probability of behavior occurrence,</p></li>
+<li><p><span class="math inline">\(\text{HORA}\)</span> represents the time of day,</p></li>
+<li><p><span class="math inline">\(\text{TRAT}\)</span> denotes the treatment or social group (primiparous and multiparous), and</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span>, <span class="math inline">\(\beta_3\)</span>) are the model coefficients.</p></li>
+</ul>
+<p>In R, this model can be fitted using the <code>glm</code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">OP</span> <span class="op">~</span> <span class="va">HORA</span> <span class="op">*</span> <span class="va">TRAT</span>, </span>
+<span>              family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">df_bh</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The variable <code>OP</code> denotes the binary outcome, indicating the occurrence (1) or non-occurrence (0) of the behavior under consideration. Meanwhile, <code>HORA</code>, <code>TRAT</code>, and <code>DIA</code> serve as predictor variables, with <code>DIA</code> specifically treated as a control variable.</p>
+<p>The <code>glm</code> function in R maximizes the likelihood of the observed data under the specified binomial distribution with a logit link, providing estimates for the model coefficients.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_op</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = OP ~ HORA * TRAT, family = binomial(link = "logit"), 
+    data = df_bh)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.57683    0.10320  -5.589 2.28e-08 ***
+HORA         0.01592    0.01205   1.321  0.18639    
+TRAT2        0.42108    0.14031   3.001  0.00269 ** 
+HORA:TRAT2  -0.04132    0.01648  -2.507  0.01219 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5123.4  on 3801  degrees of freedom
+Residual deviance: 5113.7  on 3798  degrees of freedom
+  (230 observations deleted due to missingness)
+AIC: 5121.7
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Similar to linear models, the assessment of predictor effects in Generalized Linear Models (GLMs) can be conducted through an analysis of deviance table and chi-square tests. This can be achieved using the <code>Anova</code> function from the <code>car</code> package. The following code exemplifies the procedure:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Install and load the necessary library</span></span>
+<span><span class="co">#install.packages("car")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'car' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'carData' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Perform analysis of deviance table and chi-square test</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">mod_op</span>, type <span class="op">=</span> <span class="st">"II"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type II tests)
+
+Response: OP
+          LR Chisq Df Pr(&gt;Chisq)  
+HORA        0.5659  1    0.45190  
+TRAT        2.8337  1    0.09231 .
+HORA:TRAT   6.2930  1    0.01212 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>This approach facilitates the examination of the significance of individual predictors in the model. The <code>type = "II"</code> argument specifies the use of Type II sums of squares in the analysis. Further details on the method and interpretation can be found <span class="citation" data-cites="dobson2008introduction">Dobson and Barnett (<a href="#ref-dobson2008introduction" role="doc-biblioref">2008</a>)</span> and in the documentation for the <code>car</code> package (<span class="citation" data-cites="R-car">Fox and Weisberg (<a href="#ref-R-car" role="doc-biblioref">2020</a>)</span>).</p>
+<p>The examination of the table reveals a notable interaction between the variables <code>HORA</code> and <code>TRAT</code>. Subsequently, we aim to objectively visualize predictions, along with prediction intervals, to assess the behavior probabilities of both social groups across varying time points:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a data frame for prediction</span></span>
+<span><span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  TRAT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_bh</span><span class="op">$</span><span class="va">TRAT</span><span class="op">)</span>,</span>
+<span>  HORA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df_bh</span><span class="op">$</span><span class="va">HORA</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df_bh</span><span class="op">$</span><span class="va">HORA</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Make predictions</span></span>
+<span><span class="va">pred_probs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_op</span>, newdata <span class="op">=</span> <span class="va">pred_data</span>, type <span class="op">=</span> <span class="st">"response"</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine predictions and intervals with prediction data</span></span>
+<span><span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">pred_data</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pred_probs</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Plot using ggplot2</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pred_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">HORA</span>, y <span class="op">=</span> <span class="va">fit</span>, color <span class="op">=</span> <span class="va">TRAT</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">fit</span> <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se.fit</span>, ymax <span class="op">=</span> <span class="va">fit</span> <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se.fit</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Probability of 'OP' Behavior across Day time"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Time of Day"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Probability of Behavior"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">14</span>,<span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"08:00"</span>, <span class="st">"08:40"</span>, <span class="st">"09:20"</span>, <span class="st">"10:00"</span>, <span class="st">"10:40"</span>, <span class="st">"11:20"</span>, <span class="st">"12:00"</span>, <span class="st">"12:40"</span>, <span class="st">"13:20"</span>, <span class="st">"14:00"</span>, <span class="st">"14:40"</span>,    <span class="st">"15:20"</span>, <span class="st">"16:00"</span>,   <span class="st">"16:40"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Social Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Social Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="example_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>However, should the consideration of the <code>DIA</code> variable be omitted? Let’s investigate.</p>
+<p>We can extend the model by incorporating <code>DIA</code> as a random effect using a mixed-effects model. To achieve this, we’ll utilize the <code>glmer</code> function from the <code>lme4</code> package:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Install and load necessary libraries</span></span>
+<span><span class="co">#install.packages("lme4")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: Matrix</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'Matrix' was built under R version 4.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'Matrix'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fit the mixed-effects model with DAY as a random effect</span></span>
+<span><span class="va">mod_op_mixed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/glmer.html">glmer</a></span><span class="op">(</span><span class="va">OP</span> <span class="op">~</span> <span class="va">HORA</span> <span class="op">*</span> <span class="va">TRAT</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">DIA</span><span class="op">)</span>, </span>
+<span>                   family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">binomial</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"logit"</span><span class="op">)</span>, </span>
+<span>                   data <span class="op">=</span> <span class="va">df_bh</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print model summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_op_mixed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: OP ~ HORA * TRAT + (1 | DIA)
+   Data: df_bh
+
+     AIC      BIC   logLik deviance df.resid 
+  5085.4   5116.6  -2537.7   5075.4     3797 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.3469 -0.8167 -0.7139  1.1604  1.6226 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ DIA    (Intercept) 0.07969  0.2823  
+Number of obs: 3802, groups:  DIA, 24
+
+Fixed effects:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.58801    0.11908  -4.938 7.89e-07 ***
+HORA         0.01622    0.01216   1.334  0.18225    
+TRAT2        0.43087    0.14165   3.042  0.00235 ** 
+HORA:TRAT2  -0.04215    0.01664  -2.533  0.01130 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+           (Intr) HORA   TRAT2 
+HORA       -0.772              
+TRAT2      -0.644  0.649       
+HORA:TRAT2  0.564 -0.731 -0.881</code></pre>
+</div>
+</div>
+<p>In this model, <code>(1 | DIA)</code> specifies that <code>DIA</code> is a random effect. The <code>(1 | DIA)</code> term assumes a random intercept for each level of <code>DAY</code>.</p>
+<p>Let’s perform a model comparison using the Akaike Information Criterion (AIC), a widely used metric for model selection (<span class="citation" data-cites="burnham2002model">Burnham and Anderson (<a href="#ref-burnham2002model" role="doc-biblioref">2002</a>)</span>):</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compare models using AIC</span></span>
+<span><span class="va">AIC_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">mod_op</span>, <span class="va">mod_op_mixed</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Choosing a model based on the Akaike Information Criterion (AIC) involves selecting the model with the <strong>lowest AIC value</strong> among a set of candidate models. AIC is a measure of relative model fit that balances the goodness-of-fit with the complexity of the model (<span class="citation" data-cites="burnham2004multimodel">Burnham and Anderson (<a href="#ref-burnham2004multimodel" role="doc-biblioref">2004</a>)</span>).</p>
+<p>It seems that the model, including <code>DIA</code> as a random term, is more plausible. However, analytical computation of standard errors and intervals for mixed-effects models is not straightforward. To address this, we need to employ numerical approximation methods, often through resampling techniques. <strong>However, this course does not emphasize these advanced techniques. Instead, we will acknowledge that daily variation is a natural fluctuation inherent in the experiment, leading to larger prediction intervals.</strong></p>
+</section></section><section id="thermoregulatory-variables-analysis" class="level3" data-number="9.2.4"><h3 data-number="9.2.4" class="anchored" data-anchor-id="thermoregulatory-variables-analysis">
+<span class="header-section-number">9.2.4</span> Thermoregulatory Variables Analysis</h3>
+<section id="dataset-overview-1" class="level4" data-number="9.2.4.1"><h4 data-number="9.2.4.1" class="anchored" data-anchor-id="dataset-overview-1">
+<span class="header-section-number">9.2.4.1</span> Dataset Overview:</h4>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Display a summary of the thermoregulatory variables dataset</span></span>
+<span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">df_term</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">864</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 32%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">1: 36, 2: 36, 3: 36, 4: 36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRAT</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1: 433, 2: 431</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ANIMAL</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">1: 72, 2: 72, 3: 72, 4: 72</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 6%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HORA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: left;">▇▁▇▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TF</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">28.48</td>
+<td style="text-align: right;">3.28</td>
+<td style="text-align: right;">15.20</td>
+<td style="text-align: right;">26.60</td>
+<td style="text-align: right;">28.60</td>
+<td style="text-align: right;">31.00</td>
+<td style="text-align: right;">35.60</td>
+<td style="text-align: left;">▁▁▅▇▃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TP</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">31.30</td>
+<td style="text-align: right;">2.23</td>
+<td style="text-align: right;">21.20</td>
+<td style="text-align: right;">30.00</td>
+<td style="text-align: right;">31.60</td>
+<td style="text-align: right;">33.00</td>
+<td style="text-align: right;">35.60</td>
+<td style="text-align: left;">▁▁▃▇▅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TC</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">31.35</td>
+<td style="text-align: right;">2.30</td>
+<td style="text-align: right;">22.00</td>
+<td style="text-align: right;">29.95</td>
+<td style="text-align: right;">31.60</td>
+<td style="text-align: right;">33.00</td>
+<td style="text-align: right;">36.60</td>
+<td style="text-align: left;">▁▁▅▇▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TFL</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">31.47</td>
+<td style="text-align: right;">2.56</td>
+<td style="text-align: right;">3.60</td>
+<td style="text-align: right;">30.00</td>
+<td style="text-align: right;">32.00</td>
+<td style="text-align: right;">33.20</td>
+<td style="text-align: right;">39.60</td>
+<td style="text-align: left;">▁▁▁▇▅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TCX</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">29.98</td>
+<td style="text-align: right;">2.64</td>
+<td style="text-align: right;">20.00</td>
+<td style="text-align: right;">28.40</td>
+<td style="text-align: right;">30.20</td>
+<td style="text-align: right;">32.00</td>
+<td style="text-align: right;">35.80</td>
+<td style="text-align: left;">▁▂▆▇▂</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TMS</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">30.51</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">21.88</td>
+<td style="text-align: right;">29.04</td>
+<td style="text-align: right;">30.82</td>
+<td style="text-align: right;">32.32</td>
+<td style="text-align: right;">35.32</td>
+<td style="text-align: left;">▁▂▅▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FR15</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">13.94</td>
+<td style="text-align: right;">5.30</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">18.00</td>
+<td style="text-align: right;">33.00</td>
+<td style="text-align: left;">▅▇▅▂▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FR</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">55.74</td>
+<td style="text-align: right;">21.22</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: right;">40.00</td>
+<td style="text-align: right;">52.00</td>
+<td style="text-align: right;">72.00</td>
+<td style="text-align: right;">132.00</td>
+<td style="text-align: left;">▅▇▅▂▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em>Brief Description:</em> The thermoregulatory variables dataset encompasses information on various physiological measures, providing insights into how two distinct social groups of dairy cows regulate their body temperature within a compost barn setting.</p>
+<p>Here, we will work with two variables, one being continuous (superficial temperature) and the other discrete (respiratory rate). Since temperature is continuous, it is expected to have a normal distribution, while respiratory rate, being obtained by counting, is expected to have a Poisson distribution.</p>
+</section><section id="model-definition-for-temperature" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="model-definition-for-temperature">Model definition for temperature</h4>
+<p>We could initially employ the classical linear model for superficial temperature, incorporating Gaussian errors and applying the least squares method. Nevertheless, for the sake of consistency, we will adopt its equivalent Generalized Linear Model (GLM) in the following manner:</p>
+<p><span class="math display">\[Y_{ij} = \beta_0 + \beta_1 \text{HORA} + \beta_2 \text{TRAT} + \beta_3 \text{HORA} \times \text{TRAT} + \epsilon_{ij}\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(Y_ijk\)</span> is the temperature of <span class="math inline">\(i\)</span>-th animal of <span class="math inline">\(j\)</span>-th social group measured at <span class="math inline">\(k\)</span>-th day time,</p></li>
+<li><p><span class="math inline">\(\text{HORA}\)</span> represents the time of day,</p></li>
+<li><p><span class="math inline">\(\text{TRAT}\)</span> denotes the treatment or social group (primiparous and multiparous),</p></li>
+<li><p>(<span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\beta_3\)</span>) are the model coefficients, and</p></li>
+<li><p><span class="math inline">\(\epsilon_ij\)</span> is the normal distributed error term.</p></li>
+</ul>
+<p>In R, this model can be fitted using the <code>glm</code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">TMS</span> <span class="op">~</span> <span class="va">HORA</span> <span class="op">*</span> <span class="va">TRAT</span>, </span>
+<span>              family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">df_term</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To view the model coefficients:</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_temp</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = TMS ~ HORA * TRAT, family = gaussian(link = "identity"), 
+    data = df_term)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 28.83994    0.30415  94.822  &lt; 2e-16 ***
+HORA         0.96822    0.14102   6.866 1.31e-11 ***
+TRAT2       -0.55089    0.41797  -1.318    0.188    
+HORA:TRAT2   0.02199    0.19363   0.114    0.910    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 5.070756)
+
+    Null deviance: 4690.6  on 815  degrees of freedom
+Residual deviance: 4117.5  on 812  degrees of freedom
+  (48 observations deleted due to missingness)
+AIC: 3646.5
+
+Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+</div>
+<p>And applying type II Analysis of deviance:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">mod_temp</span>, type <span class="op">=</span> <span class="st">"II"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type II tests)
+
+Response: TMS
+          LR Chisq Df Pr(&gt;Chisq)    
+HORA       102.819  1  &lt; 2.2e-16 ***
+TRAT        10.306  1   0.001326 ** 
+HORA:TRAT    0.013  1   0.909592    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The Analysis of Deviance Table indicates that the variable <code>HORA</code> significantly influences the response variable <code>TMS</code> (p &lt; 0.001), while <code>TRAT</code> and the interaction term <code>HORA:TRAT</code> do not show statistically significant effects (p &gt; 0.05). This underscores the prominent role of “HORA” in explaining variability in <code>TMS</code> within the model.</p>
+<p>Let´s see the results graphically:</p>
+<div class="cell">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a data frame for prediction</span></span>
+<span><span class="va">pred_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  TRAT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">$</span><span class="va">TRAT</span><span class="op">)</span>,</span>
+<span>  HORA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">$</span><span class="va">HORA</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">$</span><span class="va">HORA</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Make predictions</span></span>
+<span><span class="va">pred_probs_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_temp</span>, newdata <span class="op">=</span> <span class="va">pred_data</span>, type <span class="op">=</span> <span class="st">"response"</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine predictions and intervals with prediction data</span></span>
+<span><span class="va">pred_data_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">pred_data</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pred_probs_temp</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Plot using ggplot2</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pred_data_temp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">HORA</span>, y <span class="op">=</span> <span class="va">fit</span>, color <span class="op">=</span> <span class="va">TRAT</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">fit</span> <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se.fit</span>, ymax <span class="op">=</span> <span class="va">fit</span> <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se.fit</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Animal superficial temperature across Day time"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Time of Day"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Superficial temperature"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"08:00"</span>, <span class="st">"08:40"</span>,  <span class="st">"09:20"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Social Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Social Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="example_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="model-definition-for-respiratory-frequency" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="model-definition-for-respiratory-frequency">Model definition for respiratory frequency</h4>
+<p>To model the respiratory frequency (FR) using a Poisson distribution with a log link function, the relationship is expressed as follows:</p>
+<p><span class="math display">\[\log(\lambda_{ijk}) = \beta_0 + \beta_1 \text{HORA} + \beta_2 \text{TRAT} + \beta_3 \text{HORA} \times \text{TRAT}\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(\log(\lambda_{ijk})\)</span> is the natural logarithm of the expected count of respiratory frequency for the <span class="math inline">\(i\)</span>-th animal of the <span class="math inline">\(j\)</span>-th social group measured at the <span class="math inline">\(k\)</span>-th time of day,</p></li>
+<li><p><span class="math inline">\(\text{HORA}\)</span> represents the time of day,</p></li>
+<li><p><span class="math inline">\(\text{TRAT}\)</span> denotes the treatment or social group (primiparous and multiparous),</p></li>
+<li><p><span class="math inline">\(\beta_0, \beta_1, \beta_2,\)</span> and <span class="math inline">\(\beta_3\)</span> are the model coefficients.</p></li>
+</ul>
+<p>In R, this model can be fitted using the <code>glm</code> function with a Poisson distribution and a log link:</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Model definition for respiratory frequency (FR)</span></span>
+<span><span class="va">mod_fr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">FR</span> <span class="op">~</span> <span class="va">HORA</span> <span class="op">*</span> <span class="va">TRAT</span>, </span>
+<span>              family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">poisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">df_term</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To view the model coefficients:</p>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_fr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = FR ~ HORA * TRAT, family = poisson(link = "log"), 
+    data = df_term)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  3.587264   0.019198 186.855   &lt;2e-16 ***
+HORA         0.224335   0.008374  26.789   &lt;2e-16 ***
+TRAT2       -0.012572   0.026635  -0.472   0.6369    
+HORA:TRAT2  -0.022632   0.011644  -1.944   0.0519 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 6401.5  on 814  degrees of freedom
+Residual deviance: 5005.0  on 811  degrees of freedom
+  (49 observations deleted due to missingness)
+AIC: 9731.2
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>And applying Type II Analysis of Deviance:</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/Anova.html">Anova</a></span><span class="op">(</span><span class="va">mod_fr</span>, type <span class="op">=</span> <span class="st">"II"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type II tests)
+
+Response: FR
+          LR Chisq Df Pr(&gt;Chisq)    
+HORA       1350.75  1  &lt; 2.2e-16 ***
+TRAT         42.22  1  8.141e-11 ***
+HORA:TRAT     3.78  1    0.05192 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The Analysis of Deviance Table indicates that time of day significantly influences respiratory frequency. However, the social group <code>TRAT2</code> alone does not show a significant effect on <code>FR</code>, and the interaction term <code>HORA:TRAT2</code> exhibits borderline significance.</p>
+<p>Subsequently, the graphical representation illustrates the predicted FR with confidence intervals across different times of the day and social groups.</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a data frame for prediction</span></span>
+<span><span class="va">pred_data_fr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span></span>
+<span>  TRAT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">$</span><span class="va">TRAT</span><span class="op">)</span>,</span>
+<span>  HORA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">$</span><span class="va">HORA</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df_term</span><span class="op">$</span><span class="va">HORA</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Make predictions</span></span>
+<span><span class="va">pred_probs_fr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod_fr</span>, newdata <span class="op">=</span> <span class="va">pred_data_fr</span>, type <span class="op">=</span> <span class="st">"response"</span>, se.fit <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine predictions and intervals with prediction data</span></span>
+<span><span class="va">pred_data_fr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">pred_data_fr</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">pred_probs_fr</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot using ggplot2</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">pred_data_fr</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">HORA</span>, y <span class="op">=</span> <span class="va">fit</span>, color <span class="op">=</span> <span class="va">TRAT</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">fit</span> <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se.fit</span>, ymax <span class="op">=</span> <span class="va">fit</span> <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se.fit</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Animal respiratory frequency across Day time"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Time of Day"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Respiratory Frequency"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"08:00"</span>, <span class="st">"08:40"</span>, <span class="st">"09:20"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Social Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Social Group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="example_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section></section><section id="lameness-scores-analysis" class="level3" data-number="9.2.5"><h3 data-number="9.2.5" class="anchored" data-anchor-id="lameness-scores-analysis">
+<span class="header-section-number">9.2.5</span> Lameness Scores Analysis</h3>
+<section id="dataset-overview-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="dataset-overview-2">Dataset Overview</h4>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Display a summary of the lameness scores dataset</span></span>
+<span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">df_lam</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">df_lam</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">144</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 32%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">ordered</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: left;">top_counts</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">1: 12, 2: 12, 3: 12, 4: 12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRAT</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">1: 72, 2: 72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ANIMAL</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">1: 12, 2: 12, 3: 12, 4: 12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CLAUD</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">1: 81, 2: 51, 3: 3, 4: 1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HIG</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">1: 91, 2: 33, 3: 12, 0: 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em>Brief Description:</em> The lameness scores dataset documents the degree of lameness in dairy cows, presenting an opportunity to investigate whether social hierarchy plays a role in influencing lameness under specific environmental conditions, such as in a compost barn.</p>
+</section><section id="model-definition-1" class="level4 unumbered" data-number="9.2.5.1"><h4 class="unumbered anchored" data-number="9.2.5.1" data-anchor-id="model-definition-1">
+<span class="header-section-number">9.2.5.1</span> Model definition</h4>
+<p>In this analysis, we explore the application of cumulative ordinal regression to examine the lameness scores of dairy cows across multiple days within distinct social groups.</p>
+<p>The cumulative ordinal regression model represents an extension of the binomial logistic regression model, accommodating situations where the response variable is ordinal. In the context of our study, lameness scores are not merely binary (present or absent), but rather fall into multiple ordered categories. This model enables us to explore the relationship between predictor variables, such as days and social groups, and the ordinal nature of the lameness scores.</p>
+<p>Our cumulative ordinal regression model can be expressed as follows:</p>
+<p><span class="math display">\[P(Y \leq j) = F(\alpha_j + \beta_1 \cdot TRAT\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(P(Y \leq j)\)</span> is the cumulative probability that the lameness score falls into or below category <span class="math inline">\(j\)</span>,</p></li>
+<li><p><span class="math inline">\(F()\)</span> is the cumulative distribution function corresponding to the chosen link function,</p></li>
+<li><p><span class="math inline">\(\alpha_j\)</span> represents the threshold parameter associated with category <span class="math inline">\(j\)</span>,</p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> is the coefficient for the predictor variable <span class="math inline">\(TRAT\)</span>,</p></li>
+</ul>
+<p>To fit the model we can use the function <code>polr</code> of package <code>MASS</code>, as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">MASS</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'MASS'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    select</code></pre>
+</div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## fit ordered logit model and store results 'm'</span></span>
+<span><span class="va">m_claud</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/MASS/man/polr.html">polr</a></span><span class="op">(</span><span class="va">CLAUD</span> <span class="op">~</span>  <span class="va">TRAT</span>, data <span class="op">=</span> <span class="va">df_lam</span>, Hess<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## view a summary of the model</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m_claud</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+polr(formula = CLAUD ~ TRAT, data = df_lam, Hess = TRUE)
+
+Coefficients:
+       Value Std. Error t value
+TRAT2 -1.299     0.3665  -3.544
+
+Intercepts:
+    Value    Std. Error t value 
+0|1 -12.3341  25.5288    -0.4831
+1|2  -0.2400   0.2462    -0.9747
+2|3   3.0204   0.5208     5.8000
+3|4   4.4296   1.0128     4.3736
+
+Residual Deviance: 203.4066 
+AIC: 213.4066 
+(8 observations deleted due to missingness)</code></pre>
+</div>
+</div>
+<p>There is no significance test available for <code>TRAT</code>. Instead, we can inspect the confidence interval to determine significance by checking whether it encompasses zero:</p>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">ci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">m_claud</span><span class="op">)</span><span class="op">)</span> <span class="co"># computing confidence interval (CI)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for profiling to be done...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5 %     97.5 % 
+-2.0352746 -0.5935379 </code></pre>
+</div>
+</div>
+<p>Understanding the coefficients of the model might pose a challenge as they are presented in log-scale. An alternative approach for interpreting logistic regression models involves converting these coefficients into odds ratios. By exponentiating both the estimates and confidence intervals, we can obtain the odds ratios along with their respective confidence intervals.</p>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Exponentiate estimate and CI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m_claud</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   TRAT2 
+0.272872 </code></pre>
+</div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">ci</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    2.5 %    97.5 % 
+0.1306446 0.5523696 </code></pre>
+</div>
+</div>
+<p><strong>The interpretation is:</strong> For cows belonging to the social group “TRAT2” (primiparous), the odds of receiving higher scores of <code>CLAUD</code> (i.e., scores closest to 4) are 1-0.272872 = 0.727128 times lower (72.72% lower) compared to the multiparous cows, while holding all other variables constant.</p>
+<p>We can also visualize the predicted probabilities of the scores within each social group as follows:</p>
+<div class="cell">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># install.packages("effects")</span></span>
+<span></span>
+<span><span class="co"># Load the 'effects' package for visualizing model effects</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.r-project.org">effects</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'effects' was built under R version 4.3.2</code></pre>
+</div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Predict probabilities using the model for the specified data frame 'df_lam'</span></span>
+<span><span class="va">t_prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">m_claud</span>, <span class="va">df_lam</span>, type <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Reshape the predicted probabilities and the treatment variable 'TRAT' using melt</span></span>
+<span><span class="co"># This step is useful for creating a tidy data format suitable for ggplot2</span></span>
+<span><span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu">reshape2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">t_prob</span>, <span class="va">df_lam</span><span class="op">$</span><span class="va">TRAT</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rename the columns for clarity</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">prob</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TRAT"</span>, <span class="st">"CLAUD"</span>, <span class="st">"Probability"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a ggplot to visualize the probabilities</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prob</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">CLAUD</span>, y <span class="op">=</span> <span class="va">Probability</span>, fill <span class="op">=</span> <span class="va">TRAT</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Scores"</span>,y <span class="op">=</span><span class="st">"Probability (%)"</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Label for x-axis an y-axis</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Use geom_col to create a bar plot based on the melted data</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Group"</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Multiparous"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Primiparous"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="example_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section></section></section><section id="bibliography" class="level1 unnumbered"><h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-burnham2002model" class="csl-entry" role="listitem">
+Burnham, Kenneth P, and David R Anderson. 2002. <em>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</em>. Springer.
+</div>
+<div id="ref-burnham2004multimodel" class="csl-entry" role="listitem">
+———. 2004. <em>Multimodel Inference: Understanding AIC and BIC in Model Selection</em>. Springer.
+</div>
+<div id="ref-dobson2008introduction" class="csl-entry" role="listitem">
+Dobson, Annette J, and Adrian G Barnett. 2008. <em>An Introduction to Generalized Linear Models</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-R-car" class="csl-entry" role="listitem">
+Fox, John, and Sanford Weisberg. 2020. <em>Car: Companion to Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
+</div>
+<div id="ref-pilatti2019diurnal" class="csl-entry" role="listitem">
+Pilatti, J., F. Vieira, F. Rankrape, and E. Vismara. 2019. <span>“Diurnal Behaviors and Herd Characteristics of Dairy Cows Housed in a Compost-Bedded Pack Barn System Under Hot and Humid Conditions.”</span> <em>Animal</em> 13 (2): 399–406. <a href="https://doi.org/10.1017/S1751731118001088">https://doi.org/10.1017/S1751731118001088</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./dist.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GLM models framework</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">This tutorial was written by Edgar Vismara and Frederico Vieira.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This material was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>
