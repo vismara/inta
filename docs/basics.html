@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.353">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
 <meta name="author" content="Edgar Vismara and Frederico Vieira">
+
 <title>Analysis of the behavior of dairy cattle using R - 3&nbsp; Basics</title>
 <style>
 code{white-space: pre-wrap;}
@@ -54,6 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -72,7 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -88,28 +93,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
+
+
 </head>
+
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introduction to R</a></li><li class="breadcrumb-item"><a href="./basics.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basics</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analysis of the behavior of dairy cattle using R</a> 
         <div class="sidebar-tools-main">
@@ -128,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
@@ -142,8 +155,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
@@ -174,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
@@ -183,27 +196,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Basic linear model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Beyond the Gaussian linear models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./dist.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exponential family of distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">GLM models framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">GLM Analysis: A Practical Application</span></span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#syntax-object-types-and-structure" id="toc-syntax-object-types-and-structure" class="nav-link active" data-scroll-target="#syntax-object-types-and-structure"><span class="header-section-number">3.1</span> Syntax, object types and structure</a>
+  <li><a href="#syntax-object-types-and-structure" id="toc-syntax-object-types-and-structure" class="nav-link active" data-scroll-target="#syntax-object-types-and-structure"><span class="header-section-number">3.1</span> Syntax, object types and structure</a>
   <ul class="collapse">
-<li><a href="#character" id="toc-character" class="nav-link" data-scroll-target="#character"><span class="header-section-number">3.1.1</span> Character</a></li>
+  <li><a href="#character" id="toc-character" class="nav-link" data-scroll-target="#character"><span class="header-section-number">3.1.1</span> Character</a></li>
   <li><a href="#factor" id="toc-factor" class="nav-link" data-scroll-target="#factor"><span class="header-section-number">3.1.2</span> Factor</a></li>
   <li><a href="#double" id="toc-double" class="nav-link" data-scroll-target="#double"><span class="header-section-number">3.1.3</span> Double</a></li>
   <li><a href="#integer" id="toc-integer" class="nav-link" data-scroll-target="#integer"><span class="header-section-number">3.1.4</span> Integer</a></li>
@@ -214,34 +246,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors"><span class="header-section-number">3.1.9</span> Vectors</a></li>
   <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices"><span class="header-section-number">3.1.10</span> Matrices</a></li>
   <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">3.1.11</span> Data Frames</a></li>
-  </ul>
-</li>
+  </ul></li>
   <li><a href="#pre-compiled-functions" id="toc-pre-compiled-functions" class="nav-link" data-scroll-target="#pre-compiled-functions"><span class="header-section-number">3.2</span> Pre-compiled Functions</a></li>
   <li><a href="#understanding-the-generic-structure-of-an-r-function" id="toc-understanding-the-generic-structure-of-an-r-function" class="nav-link" data-scroll-target="#understanding-the-generic-structure-of-an-r-function"><span class="header-section-number">3.3</span> Understanding the Generic Structure of an R Function</a></li>
   <li><a href="#dealing-with-na-values-in-r" id="toc-dealing-with-na-values-in-r" class="nav-link" data-scroll-target="#dealing-with-na-values-in-r"><span class="header-section-number">3.4</span> Dealing with “NA” Values in R</a></li>
-  <li>
-<a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><span class="header-section-number">3.5</span> Libraries</a>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><span class="header-section-number">3.5</span> Libraries</a>
   <ul class="collapse">
-<li><a href="#installing-and-loading-libraries-in-r" id="toc-installing-and-loading-libraries-in-r" class="nav-link" data-scroll-target="#installing-and-loading-libraries-in-r"><span class="header-section-number">3.5.1</span> Installing and Loading Libraries in R</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#data-import-in-r" id="toc-data-import-in-r" class="nav-link" data-scroll-target="#data-import-in-r"><span class="header-section-number">3.6</span> Data Import in R</a>
+  <li><a href="#installing-and-loading-libraries-in-r" id="toc-installing-and-loading-libraries-in-r" class="nav-link" data-scroll-target="#installing-and-loading-libraries-in-r"><span class="header-section-number">3.5.1</span> Installing and Loading Libraries in R</a></li>
+  </ul></li>
+  <li><a href="#data-import-in-r" id="toc-data-import-in-r" class="nav-link" data-scroll-target="#data-import-in-r"><span class="header-section-number">3.6</span> Data Import in R</a>
   <ul class="collapse">
-<li><a href="#importing-pre-available-data" id="toc-importing-pre-available-data" class="nav-link" data-scroll-target="#importing-pre-available-data"><span class="header-section-number">3.6.1</span> Importing Pre-Available Data</a></li>
+  <li><a href="#importing-pre-available-data" id="toc-importing-pre-available-data" class="nav-link" data-scroll-target="#importing-pre-available-data"><span class="header-section-number">3.6.1</span> Importing Pre-Available Data</a></li>
   <li><a href="#importing-data-from-csv" id="toc-importing-data-from-csv" class="nav-link" data-scroll-target="#importing-data-from-csv"><span class="header-section-number">3.6.2</span> Importing Data from CSV</a></li>
   <li><a href="#importing-data-from-text-txt-files" id="toc-importing-data-from-text-txt-files" class="nav-link" data-scroll-target="#importing-data-from-text-txt-files"><span class="header-section-number">3.6.3</span> Importing Data from Text (TXT) Files</a></li>
   <li><a href="#importing-data-from-excel" id="toc-importing-data-from-excel" class="nav-link" data-scroll-target="#importing-data-from-excel"><span class="header-section-number">3.6.4</span> Importing Data from Excel</a></li>
   <li><a href="#beyond-local-files" id="toc-beyond-local-files" class="nav-link" data-scroll-target="#beyond-local-files"><span class="header-section-number">3.6.5</span> Beyond Local Files</a></li>
+  </ul></li>
   </ul>
-</li>
-  </ul></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">
-<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basics</span>
-</h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Basics</span></h1>
 </div>
 
 
@@ -254,131 +283,141 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><section id="syntax-object-types-and-structure" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="syntax-object-types-and-structure">
-<span class="header-section-number">3.1</span> Syntax, object types and structure</h2>
+</header>
+
+<section id="syntax-object-types-and-structure" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="syntax-object-types-and-structure"><span class="header-section-number">3.1</span> Syntax, object types and structure</h2>
 <p>In R, you work with a variety of data types to represent and manipulate information. Understanding these data types is essential for effective data analysis. Let’s expand upon the data types in the context of the provided text.</p>
-<section id="character" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="character">
-<span class="header-section-number">3.1.1</span> Character</h3>
+<section id="character" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="character"><span class="header-section-number">3.1.1</span> Character</h3>
 <p>Character data types are used to represent text or strings. They are enclosed in single or double quotes and are ideal for working with labels, names, or textual data.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Name of a dairy cow</span></span>
-<span><span class="va">cow_name</span> <span class="op">&lt;-</span> <span class="st">"Bessie"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Name of a dairy cow</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cow_name <span class="ot">&lt;-</span> <span class="st">"Bessie"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="factor" class="level3" data-number="3.1.2"><h3 data-number="3.1.2" class="anchored" data-anchor-id="factor">
-<span class="header-section-number">3.1.2</span> Factor</h3>
+</section>
+<section id="factor" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="factor"><span class="header-section-number">3.1.2</span> Factor</h3>
 <p>Factors are a unique data type in R, often used to represent categorical data. They have predefined levels, making them suitable for variables with distinct categories or levels.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Cow breeds as a factor</span></span>
-<span><span class="va">cow_breeds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Holstein"</span>, <span class="st">"Jersey"</span>, <span class="st">"Guernsey"</span>, <span class="st">"Simmental"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cow breeds as a factor</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cow_breeds <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Holstein"</span>, <span class="st">"Jersey"</span>, <span class="st">"Guernsey"</span>, <span class="st">"Simmental"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="double" class="level3" data-number="3.1.3"><h3 data-number="3.1.3" class="anchored" data-anchor-id="double">
-<span class="header-section-number">3.1.3</span> Double</h3>
+</section>
+<section id="double" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="double"><span class="header-section-number">3.1.3</span> Double</h3>
 <p>Double data types represent numeric values, typically in decimal form. They are used for storing continuous, real-valued data, such as measurements and percentages.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Milk production in gallons</span></span>
-<span><span class="va">milk_production_gallons</span> <span class="op">&lt;-</span> <span class="fl">15.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Milk production in gallons</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>milk_production_gallons <span class="ot">&lt;-</span> <span class="fl">15.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="integer" class="level3" data-number="3.1.4"><h3 data-number="3.1.4" class="anchored" data-anchor-id="integer">
-<span class="header-section-number">3.1.4</span> Integer</h3>
+</section>
+<section id="integer" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="integer"><span class="header-section-number">3.1.4</span> Integer</h3>
 <p>Integer data types are used for whole numbers without decimal points. They are ideal for representing counts, quantities, or discrete values.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Number of calves born</span></span>
-<span><span class="va">num_calves</span> <span class="op">&lt;-</span> <span class="fl">5L</span>  <span class="co"># The 'L' indicates it's an integer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of calves born</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>num_calves <span class="ot">&lt;-</span> 5L  <span class="co"># The 'L' indicates it's an integer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="logical" class="level3" data-number="3.1.5"><h3 data-number="3.1.5" class="anchored" data-anchor-id="logical">
-<span class="header-section-number">3.1.5</span> Logical</h3>
+</section>
+<section id="logical" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="logical"><span class="header-section-number">3.1.5</span> Logical</h3>
 <p>Logical data types, often referred to as booleans, represent binary values: TRUE or FALSE. They are essential for making logical comparisons and decisions in your code.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Is the cow healthy?</span></span>
-<span><span class="va">is_healthy</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the cow healthy?</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>is_healthy <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="date" class="level3" data-number="3.1.6"><h3 data-number="3.1.6" class="anchored" data-anchor-id="date">
-<span class="header-section-number">3.1.6</span> Date</h3>
+</section>
+<section id="date" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="date"><span class="header-section-number">3.1.6</span> Date</h3>
 <p>Date data types are used to work with dates and times. They allow you to represent specific points in time, including date and time together, in a structured manner.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Date of last milk collection</span></span>
-<span><span class="va">last_milk_collection</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2023-10-25"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Date of last milk collection</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>last_milk_collection <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2023-10-25"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="lists" class="level3" data-number="3.1.7"><h3 data-number="3.1.7" class="anchored" data-anchor-id="lists">
-<span class="header-section-number">3.1.7</span> Lists</h3>
+</section>
+<section id="lists" class="level3" data-number="3.1.7">
+<h3 data-number="3.1.7" class="anchored" data-anchor-id="lists"><span class="header-section-number">3.1.7</span> Lists</h3>
 <p>Lists are a versatile data type in R, capable of storing various objects of different types. They can contain scalars, vectors, data frames, and more.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Information about a dairy farm as a list</span></span>
-<span><span class="va">farm_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>farm_name <span class="op">=</span> <span class="st">"Green Meadows"</span>, location <span class="op">=</span> <span class="st">"Wisconsin"</span>, cows <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">550</span>, <span class="fl">600</span>, <span class="fl">520</span>, <span class="fl">580</span>, <span class="fl">630</span><span class="op">)</span>, is_organic <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Information about a dairy farm as a list</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>farm_info <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">farm_name =</span> <span class="st">"Green Meadows"</span>, <span class="at">location =</span> <span class="st">"Wisconsin"</span>, <span class="at">cows =</span> <span class="fu">c</span>(<span class="dv">550</span>, <span class="dv">600</span>, <span class="dv">520</span>, <span class="dv">580</span>, <span class="dv">630</span>), <span class="at">is_organic =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Various types of data can be organized using a diverse range of data structures, as previously mentioned scalars, vectors, matrices, and data frames.</p>
-</section><section id="scalars" class="level3" data-number="3.1.8"><h3 data-number="3.1.8" class="anchored" data-anchor-id="scalars">
-<span class="header-section-number">3.1.8</span> Scalars</h3>
+</section>
+<section id="scalars" class="level3" data-number="3.1.8">
+<h3 data-number="3.1.8" class="anchored" data-anchor-id="scalars"><span class="header-section-number">3.1.8</span> Scalars</h3>
 <p>Scalars are single values in R. They can be integers, decimals, or characters. You might use scalars to represent individual data points.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Number of dairy cows on a farm</span></span>
-<span><span class="va">num_cows</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of dairy cows on a farm</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>num_cows <span class="ot">&lt;-</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="vectors" class="level3" data-number="3.1.9"><h3 data-number="3.1.9" class="anchored" data-anchor-id="vectors">
-<span class="header-section-number">3.1.9</span> Vectors</h3>
+</section>
+<section id="vectors" class="level3" data-number="3.1.9">
+<h3 data-number="3.1.9" class="anchored" data-anchor-id="vectors"><span class="header-section-number">3.1.9</span> Vectors</h3>
 <p>Vectors are one-dimensional arrays that can store multiple values of the same data type. They are commonly used in R to work with collections of data. For example, you might use vectors to store information about individual cow weights.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Weight of dairy cows in kilograms</span></span>
-<span><span class="va">cow_weights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">550</span>, <span class="fl">600</span>, <span class="fl">520</span>, <span class="fl">580</span>, <span class="fl">630</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight of dairy cows in kilograms</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cow_weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">550</span>, <span class="dv">600</span>, <span class="dv">520</span>, <span class="dv">580</span>, <span class="dv">630</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="matrices" class="level3" data-number="3.1.10"><h3 data-number="3.1.10" class="anchored" data-anchor-id="matrices">
-<span class="header-section-number">3.1.10</span> Matrices</h3>
+</section>
+<section id="matrices" class="level3" data-number="3.1.10">
+<h3 data-number="3.1.10" class="anchored" data-anchor-id="matrices"><span class="header-section-number">3.1.10</span> Matrices</h3>
 <p>Matrices are two-dimensional arrays that can store data of the same data type. You might use matrices to represent data tables, like the weights of multiple cows over time.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a matrix with cow weights for two weeks</span></span>
-<span><span class="va">cow_weight_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">550</span>, <span class="fl">600</span>, <span class="fl">520</span>, <span class="fl">580</span>, <span class="fl">630</span>, <span class="fl">560</span>, <span class="fl">610</span>, <span class="fl">530</span>, <span class="fl">590</span>, <span class="fl">640</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">5</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">cow_weight_matrix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Week1"</span>, <span class="st">"Week2"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">cow_weight_matrix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cow1"</span>, <span class="st">"Cow2"</span>, <span class="st">"Cow3"</span>, <span class="st">"Cow4"</span>, <span class="st">"Cow5"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a matrix with cow weights for two weeks</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cow_weight_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">550</span>, <span class="dv">600</span>, <span class="dv">520</span>, <span class="dv">580</span>, <span class="dv">630</span>, <span class="dv">560</span>, <span class="dv">610</span>, <span class="dv">530</span>, <span class="dv">590</span>, <span class="dv">640</span>), <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cow_weight_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Week1"</span>, <span class="st">"Week2"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cow_weight_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cow1"</span>, <span class="st">"Cow2"</span>, <span class="st">"Cow3"</span>, <span class="st">"Cow4"</span>, <span class="st">"Cow5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="data-frames" class="level3" data-number="3.1.11"><h3 data-number="3.1.11" class="anchored" data-anchor-id="data-frames">
-<span class="header-section-number">3.1.11</span> Data Frames</h3>
+</section>
+<section id="data-frames" class="level3" data-number="3.1.11">
+<h3 data-number="3.1.11" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">3.1.11</span> Data Frames</h3>
 <p>Data frames are a common data structure in R, designed for tabular data. They can store different types of data (e.g., scalars, vectors) in columns. You might use data frames to organize data like cow ID, age, weight, and milk production.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a data frame with information about dairy cows</span></span>
-<span><span class="va">dairy_cows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>  ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>,</span>
-<span>  Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bessie"</span>, <span class="st">"MooMoo"</span>, <span class="st">"Daisy"</span>, <span class="st">"Buttercup"</span>, <span class="st">"Elsie"</span><span class="op">)</span>,</span>
-<span>  Age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>,</span>
-<span>  Weight_kg <span class="op">=</span> <span class="va">cow_weights</span>,</span>
-<span>  Milk_Production_liters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">18</span>, <span class="fl">22</span>, <span class="fl">19</span>, <span class="fl">21</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with information about dairy cows</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dairy_cows <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"Bessie"</span>, <span class="st">"MooMoo"</span>, <span class="st">"Daisy"</span>, <span class="st">"Buttercup"</span>, <span class="st">"Elsie"</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Weight_kg =</span> cow_weights,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Milk_Production_liters =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">21</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="pre-compiled-functions" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="pre-compiled-functions">
-<span class="header-section-number">3.2</span> Pre-compiled Functions</h2>
+</section>
+</section>
+<section id="pre-compiled-functions" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="pre-compiled-functions"><span class="header-section-number">3.2</span> Pre-compiled Functions</h2>
 <p>R provides pre-compiled functions and data structures that optimize the efficiency of working with these objects. Some of these functions have been demonstrated in the earlier examples, including:</p>
 <ul>
-<li>
-<strong>Combining elements</strong>: The <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function is fundamental in R for creating vectors by combining individual elements.</li>
-<li>
-<strong>Matrices:</strong> You can create matrices using the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function to organize structured data.</li>
-<li>
-<strong>Data Frames:</strong> The <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> function is employed to establish data frames for tabular data.</li>
+<li><strong>Combining elements</strong>: The <code>c()</code> function is fundamental in R for creating vectors by combining individual elements.</li>
+<li><strong>Matrices:</strong> You can create matrices using the <code>matrix()</code> function to organize structured data.</li>
+<li><strong>Data Frames:</strong> The <code>data.frame()</code> function is employed to establish data frames for tabular data.</li>
 </ul>
 <p>However, there are numerous others, including:</p>
 <ul>
-<li>
-<strong>Summary Statistics:</strong> R offers pre-compiled functions like <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> for in-depth data analysis.</li>
-<li>
-<strong>Plotting:</strong> R provides functions such as <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> and <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> for crafting data visualizations.</li>
+<li><strong>Summary Statistics:</strong> R offers pre-compiled functions like <code>mean()</code>, <code>median()</code>, and <code>summary()</code> for in-depth data analysis.</li>
+<li><strong>Plotting:</strong> R provides functions such as <code>plot()</code> and <code>hist()</code> for crafting data visualizations.</li>
 </ul>
 <p>These pre-compiled functions and data structures simplify the process of working with data, enabling efficient data manipulation and analysis.</p>
 <p>Certainly, here’s the revised version, including information about what “val” represents:</p>
-</section><section id="understanding-the-generic-structure-of-an-r-function" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="understanding-the-generic-structure-of-an-r-function">
-<span class="header-section-number">3.3</span> Understanding the Generic Structure of an R Function</h2>
+</section>
+<section id="understanding-the-generic-structure-of-an-r-function" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="understanding-the-generic-structure-of-an-r-function"><span class="header-section-number">3.3</span> Understanding the Generic Structure of an R Function</h2>
 <p>In R, every function adheres to a consistent and generic structure, typically defined as:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span>arg1 <span class="op">=</span> <span class="va">val</span>, arg2 <span class="op">=</span> <span class="va">val</span>, arg3 <span class="op">=</span> <span class="va">val</span>, <span class="va">...</span>, argN <span class="op">=</span> <span class="va">val</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(<span class="at">arg1 =</span> val, <span class="at">arg2 =</span> val, <span class="at">arg3 =</span> val, ..., <span class="at">argN =</span> val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><strong>function_name:</strong> This is the name of the R function, and it signifies the specific operation that the function performs.</p></li>
@@ -387,73 +426,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this context, “val” is a placeholder for the actual values or parameters you would provide when calling the function. The “val” should be replaced with specific values relevant to the function’s operation.</p>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Generic structure of a function</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="cn">NA</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generic structure of a function</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="cn">NA</span>), <span class="at">na.rm =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="dealing-with-na-values-in-r" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="dealing-with-na-values-in-r">
-<span class="header-section-number">3.4</span> Dealing with “NA” Values in R</h2>
+</section>
+<section id="dealing-with-na-values-in-r" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="dealing-with-na-values-in-r"><span class="header-section-number">3.4</span> Dealing with “NA” Values in R</h2>
 <p>In R, “NA” represents missing or undefined data. It stands for “Not Available” and is used to indicate missing values. You may encounter different types of “NA” values, each tailored to specific data types. To handle missing data:</p>
 <ul>
-<li><p>Detect NAs with <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code> or <code><a href="https://rdrr.io/r/stats/complete.cases.html">complete.cases()</a></code>.</p></li>
-<li><p>Remove NAs using functions like <code><a href="https://rdrr.io/r/stats/na.fail.html">na.omit()</a></code>.</p></li>
+<li><p>Detect NAs with <code>is.na()</code> or <code>complete.cases()</code>.</p></li>
+<li><p>Remove NAs using functions like <code>na.omit()</code>.</p></li>
 <li><p>Replace NAs with specific values when needed.</p></li>
 <li><p>Ignore NAs in calculations using the <code>na.rm</code> parameter.</p></li>
 </ul>
 <p>Example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a vector with missing data (NAs)</span></span>
-<span><span class="va">data_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="cn">NA</span>, <span class="fl">25</span>, <span class="fl">18</span>, <span class="cn">NA</span>, <span class="fl">30</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Detect NAs in the vector</span></span>
-<span><span class="va">na_indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">data_vector</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Remove NAs and create a new vector</span></span>
-<span><span class="va">clean_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">data_vector</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Replace NAs with a specific value (e.g., 0)</span></span>
-<span><span class="va">data_vector</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">data_vector</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span></span>
-<span><span class="co"># Calculate the mean of the cleaned vector, ignoring NAs</span></span>
-<span><span class="va">mean_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">clean_vector</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Print the results</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Original Data Vector: "</span>, <span class="va">data_vector</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector with missing data (NAs)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="cn">NA</span>, <span class="dv">25</span>, <span class="dv">18</span>, <span class="cn">NA</span>, <span class="dv">30</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Detect NAs in the vector</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>na_indices <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(data_vector))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NAs and create a new vector</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>clean_vector <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data_vector)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NAs with a specific value (e.g., 0)</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>data_vector[<span class="fu">is.na</span>(data_vector)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean of the cleaned vector, ignoring NAs</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(clean_vector, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the results</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original Data Vector: "</span>, data_vector, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Original Data Vector:  12 0 25 18 0 30 </code></pre>
 </div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Indices of NAs: "</span>, <span class="va">na_indices</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Indices of NAs: "</span>, na_indices, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Indices of NAs:  2 5 </code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Cleaned Data Vector: "</span>, <span class="va">clean_vector</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Cleaned Data Vector: "</span>, clean_vector, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cleaned Data Vector:  12 25 18 30 </code></pre>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Mean Value (Ignoring NAs): "</span>, <span class="va">mean_value</span>, <span class="st">"\n"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean Value (Ignoring NAs): "</span>, mean_value, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mean Value (Ignoring NAs):  21.25 </code></pre>
 </div>
 </div>
-</section><section id="libraries" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="libraries">
-<span class="header-section-number">3.5</span> Libraries</h2>
+</section>
+<section id="libraries" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="libraries"><span class="header-section-number">3.5</span> Libraries</h2>
 <p>In R, libraries are collections of functions and datasets that extend the capabilities of the base R system. They provide additional tools and functions for various tasks, such as data manipulation, visualization, and statistical analysis. Libraries are crucial for enhancing your data analysis and programming capabilities in R.</p>
-<section id="installing-and-loading-libraries-in-r" class="level3" data-number="3.5.1"><h3 data-number="3.5.1" class="anchored" data-anchor-id="installing-and-loading-libraries-in-r">
-<span class="header-section-number">3.5.1</span> Installing and Loading Libraries in R</h3>
-<p>To use a library in R, you first need to install it (usually only once) and then load it (each time you start a new R session) using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. You can install and load libraries using RStudio or directly in R.</p>
+<section id="installing-and-loading-libraries-in-r" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="installing-and-loading-libraries-in-r"><span class="header-section-number">3.5.1</span> Installing and Loading Libraries in R</h3>
+<p>To use a library in R, you first need to install it (usually only once) and then load it (each time you start a new R session) using the <code>library()</code> function. You can install and load libraries using RStudio or directly in R.</p>
 <p>Example: Installing and Loading the “tidyverse” Library in RStudio</p>
 <ol type="1">
 <li><p>Open RStudio.</p></li>
-<li><p>In the RStudio console, you can install the “tidyverse” library using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> function:</p></li>
+<li><p>In the RStudio console, you can install the “tidyverse” library using the <code>install.packages()</code> function:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This command will download and install the “tidyverse” package from the Comprehensive R Archive Network (CRAN).</p>
 <ol start="3" type="1">
-<li>Once the installation is complete, load the “tidyverse” library using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function:</li>
+<li>Once the installation is complete, load the “tidyverse” library using the <code>library()</code> function:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.2     ✔ readr     2.1.4
@@ -470,18 +511,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Loading the “tidyverse” library makes its functions and data manipulation tools available for your R session.</p>
 <p>Now you can take advantage of the powerful data analysis and visualization tools provided by the “tidyverse” package in your RStudio environment.</p>
 <p>Libraries like “tidyverse” are essential for extending R’s functionality and making it a powerful platform for data analysis and statistical computing.</p>
-</section></section><section id="data-import-in-r" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="data-import-in-r">
-<span class="header-section-number">3.6</span> Data Import in R</h2>
+</section>
+</section>
+<section id="data-import-in-r" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="data-import-in-r"><span class="header-section-number">3.6</span> Data Import in R</h2>
 <p>Data import is a crucial step in data analysis using R. R provides various functions and packages to import and manipulate data from different sources. Here, we’ll cover how to import pre-available data and work with commonly used file formats like CSV, TXT, and Excel.</p>
-<section id="importing-pre-available-data" class="level3" data-number="3.6.1"><h3 data-number="3.6.1" class="anchored" data-anchor-id="importing-pre-available-data">
-<span class="header-section-number">3.6.1</span> Importing Pre-Available Data</h3>
+<section id="importing-pre-available-data" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="importing-pre-available-data"><span class="header-section-number">3.6.1</span> Importing Pre-Available Data</h3>
 <p>In R, there are built-in datasets that you can use for practice and analysis. One such dataset is the “mtcars” dataset.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the built-in "mtcars" dataset</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># View the first few rows of the dataset</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the built-in "mtcars" dataset</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows of the dataset</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -493,57 +536,61 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 </div>
 </div>
 <p>The “mtcars” dataset is now available for analysis.</p>
-</section><section id="importing-data-from-csv" class="level3" data-number="3.6.2"><h3 data-number="3.6.2" class="anchored" data-anchor-id="importing-data-from-csv">
-<span class="header-section-number">3.6.2</span> Importing Data from CSV</h3>
-<p>Suppose you have data in a CSV (Comma-Separated Values) file. You can use the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> function from the Tidyverse to import it. Here’s an example:</p>
+</section>
+<section id="importing-data-from-csv" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="importing-data-from-csv"><span class="header-section-number">3.6.2</span> Importing Data from CSV</h3>
+<p>Suppose you have data in a CSV (Comma-Separated Values) file. You can use the <code>read_csv()</code> function from the Tidyverse to import it. Here’s an example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data from a CSV file</span></span>
-<span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"my_data.csv"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Display the first few rows of the imported data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from a CSV file</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"my_data.csv"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the imported data</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Replace <code>"my_data.csv"</code> with the actual path to your CSV file.</p>
-</section><section id="importing-data-from-text-txt-files" class="level3" data-number="3.6.3"><h3 data-number="3.6.3" class="anchored" data-anchor-id="importing-data-from-text-txt-files">
-<span class="header-section-number">3.6.3</span> Importing Data from Text (TXT) Files</h3>
-<p>To import data from a plain text file, you can use the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim()</a></code> function from Tidyverse. This function is versatile and can handle various delimiters, making it suitable for tab-delimited or space-delimited files. Here’s an example:</p>
+</section>
+<section id="importing-data-from-text-txt-files" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="importing-data-from-text-txt-files"><span class="header-section-number">3.6.3</span> Importing Data from Text (TXT) Files</h3>
+<p>To import data from a plain text file, you can use the <code>read_delim()</code> function from Tidyverse. This function is versatile and can handle various delimiters, making it suitable for tab-delimited or space-delimited files. Here’s an example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data from a text file</span></span>
-<span><span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="st">"my_data.txt"</span>, delim <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Display the first few rows of the imported data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">my_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from a text file</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"my_data.txt"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the imported data</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Replace <code>"my_data.txt"</code> with the actual path to your text file and adjust the <code>delim</code> parameter as needed to match your file’s delimiter.</p>
-</section><section id="importing-data-from-excel" class="level3" data-number="3.6.4"><h3 data-number="3.6.4" class="anchored" data-anchor-id="importing-data-from-excel">
-<span class="header-section-number">3.6.4</span> Importing Data from Excel</h3>
-<p>To import data from Excel files, you can use the <code>readxl</code> package. First, install the package and then use the <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel()</a></code> function to import data from an Excel file.</p>
+</section>
+<section id="importing-data-from-excel" class="level3" data-number="3.6.4">
+<h3 data-number="3.6.4" class="anchored" data-anchor-id="importing-data-from-excel"><span class="header-section-number">3.6.4</span> Importing Data from Excel</h3>
+<p>To import data from Excel files, you can use the <code>readxl</code> package. First, install the package and then use the <code>read_excel()</code> function to import data from an Excel file.</p>
 <p>Assuming you have an Excel file named <code>"dairy_data.xlsx"</code> with a sheet named <code>"Cattle_Info"</code>, you can import it as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Install and load the "readxl" package (install only once)</span></span>
-<span><span class="co"># install.packages("readxl")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Import data from an Excel file</span></span>
-<span><span class="va">cattle_data_excel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"dairy_data.xlsx"</span>, sheet <span class="op">=</span> <span class="st">"Cattle_Info"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># View the first few rows of the imported data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cattle_data_excel</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load the "readxl" package (install only once)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readxl")</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from an Excel file</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>cattle_data_excel <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dairy_data.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Cattle_Info"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows of the imported data</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cattle_data_excel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="beyond-local-files" class="level3" data-number="3.6.5"><h3 data-number="3.6.5" class="anchored" data-anchor-id="beyond-local-files">
-<span class="header-section-number">3.6.5</span> Beyond Local Files</h3>
+</section>
+<section id="beyond-local-files" class="level3" data-number="3.6.5">
+<h3 data-number="3.6.5" class="anchored" data-anchor-id="beyond-local-files"><span class="header-section-number">3.6.5</span> Beyond Local Files</h3>
 <p>Beyond local data storage, R enables you to seamlessly import datasets from the internet. This functionality provides access to a wide range of online data sources.</p>
 <p>To import a dataset from the internet into R, you can employ the functions previously discussed, depending on the file format accessible via a URL. Let’s illustrate this with a practical example involving a <code>.csv</code> file related to milk production for dairy cows, hosted on GitHub. Here’s how to import this data into R:</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Define the URL of the dataset</span></span>
-<span><span class="va">data_url</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/state_milk_production.csv"</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># Import data from the internet</span></span>
-<span><span class="va">state_milk_production</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">data_url</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># View the first few rows of the imported data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">state_milk_production</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the URL of the dataset</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/state_milk_production.csv"</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data from the internet</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>state_milk_production <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows of the imported data</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(state_milk_production)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   region    state          year milk_produced
@@ -558,7 +605,11 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 </div>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -790,7 +841,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="./start.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></span>
       </a>          
@@ -802,7 +855,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">This tutorial was written by Edgar Vismara and Frederico Vieira.</div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -810,6 +864,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">This material was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
+
 
 
 </body></html>

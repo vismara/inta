@@ -1507,25 +1507,27 @@ AIC: 213.4066
 <p>We can also visualize the predicted probabilities of the scores within each social group as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("effects")</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the 'effects' package for visualizing model effects</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict probabilities using the model for the specified data frame 'df_lam'</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>t_prob <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(<span class="at">object =</span> m_claud, df_lam, <span class="at">type =</span> <span class="st">"p"</span>))</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the predicted probabilities and the treatment variable 'TRAT' using melt</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="co"># This step is useful for creating a tidy data format suitable for ggplot2</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(<span class="fu">cbind</span>(t_prob, df_lam<span class="sc">$</span>TRAT))</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns for clarity</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(prob) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"TRAT"</span>, <span class="st">"CLAUD"</span>, <span class="st">"Probability"</span>)</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ggplot to visualize the probabilities</span></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob, <span class="fu">aes</span>(<span class="at">x =</span> CLAUD, <span class="at">y =</span> Probability, <span class="at">fill =</span> TRAT)) <span class="sc">+</span> </span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Scores"</span>,<span class="at">y =</span><span class="st">"Probability (%)"</span>) <span class="sc">+</span>  <span class="co"># Label for x-axis an y-axis</span></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span>  <span class="co"># Use geom_col to create a bar plot based on the melted data</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Group"</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"Multiparous"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"Primiparous"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("reshape2")</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the 'effects' package for visualizing model effects</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict probabilities using the model for the specified data frame 'df_lam'</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>t_prob <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(<span class="at">object =</span> m_claud, df_lam, <span class="at">type =</span> <span class="st">"p"</span>))</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the predicted probabilities and the treatment variable 'TRAT' using melt</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="co"># This step is useful for creating a tidy data format suitable for ggplot2</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> reshape2<span class="sc">::</span><span class="fu">melt</span>(<span class="fu">cbind</span>(t_prob, df_lam<span class="sc">$</span>TRAT))</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns for clarity</span></span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(prob) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"TRAT"</span>, <span class="st">"CLAUD"</span>, <span class="st">"Probability"</span>)</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ggplot to visualize the probabilities</span></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob, <span class="fu">aes</span>(<span class="at">x =</span> CLAUD, <span class="at">y =</span> Probability, <span class="at">fill =</span> TRAT)) <span class="sc">+</span> </span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Scores"</span>,<span class="at">y =</span><span class="st">"Probability (%)"</span>) <span class="sc">+</span>  <span class="co"># Label for x-axis an y-axis</span></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span>  <span class="co"># Use geom_col to create a bar plot based on the melted data</span></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Group"</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"Multiparous"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"Primiparous"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="example_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
